@@ -2,6 +2,7 @@ package com.polidea.reactnativeble;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
@@ -1474,9 +1475,81 @@ public class BleModule extends ReactContextBaseJavaModule {
     safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
   }
 
-  @ReactMethod
-  public void monitorCharacteristicForService(final int serviceIdentifier, final String characteristicUUID,
-      final String transactionId, final Promise promise) {
+        final BluetoothGattCharacteristic gattCharacteristic = characteristic.getNativeCharacteristic();
+
+        final Subscription subscription = Observable.defer(new Func0<Observable<Observable<byte[]>>>() {
+            @Override
+            public Observable<Observable<byte[]>> call() {
+                int properties = gattCharacteristic.getProperties();
+                BluetoothGattDescriptor cccDescriptor = gattCharacteristic.getDescriptor(Characteristic.CLIENT_CHARACTERISTIC_CONFIG_UUID);
+                NotificationSetupMode setupMode = cccDescriptor != null
+                        ? NotificationSetupMode.QUICK_SETUP
+                        : NotificationSetupMode.COMPAT;
+                if ((properties & BluetoothGattCharacteristic.PROPERTY_NOTIFY) != 0) {
+                    return connection.setupNotification(gattCharacteristic, setupMode);
+                }
+
+                if ((properties & BluetoothGattCharacteristic.PROPERTY_INDICATE) != 0) {
+                    return connection.setupIndication(gattCharacteristic, setupMode);
+                }
+
+                return Observable.error(new CannotMonitorCharacteristicException(gattCharacteristic));
+            }
+        })
+                .flatMap(new Func1<Observable<byte[]>, Observable<byte[]>>() {
+                    @Override
+                    public Observable<byte[]> call(Observable<byte[]> observable) {
+                        return observable;
+                    }
+                })
+                .doOnUnsubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        promise.resolve(null);
+                        transactions.removeSubscription(transactionId);
+                    }
+                })
+                .subscribe(new Observer<byte[]>() {
+                    @Override
+                    public void onCompleted() {
+                        promise.resolve(null);
+                        transactions.removeSubscription(transactionId);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        errorConverter.toError(e).reject(promise);
+                        transactions.removeSubscription(transactionId);
+                    }
+
+                    @Override
+                    public void onNext(byte[] bytes) {
+                        characteristic.logValue("Notification from", bytes);
+                        WritableArray jsResult = Arguments.createArray();
+                        jsResult.pushNull();
+                        jsResult.pushMap(characteristic.toJSObject(bytes));
+                        jsResult.pushString(transactionId);
+                        sendEvent(Event.ReadEvent, jsResult);
+                    }
+                });
+
+        transactions.replaceSubscription(transactionId, subscription);
+    }
+
+
+    // Mark: Characteristics getters ---------------------------------------------------------------
+
+    @Nullable
+    private Characteristic getCharacteristicOrReject(@NonNull final String deviceId,
+                                                     @NonNull final String serviceUUID,
+                                                     @NonNull final String characteristicUUID,
+                                                     @NonNull Promise promise) {
+
+        final UUID[] UUIDs = UUIDConverter.convert(serviceUUID, characteristicUUID);
+        if (UUIDs == null) {
+            BleErrorUtils.invalidIdentifiers(serviceUUID, characteristicUUID).reject(promise);
+            return null;
+        }
 
     final Characteristic characteristic = getCharacteristicOrReject(serviceIdentifier, characteristicUUID, promise);
     if (characteristic == null) {
@@ -1604,10 +1677,26 @@ public class BleModule extends ReactContextBaseJavaModule {
       return null;
     }
 
-    final Service service = discoveredServices.get(serviceIdentifier);
-    if (service == null) {
-      BleErrorUtils.serviceNotFound(Integer.toString(serviceIdentifier)).reject(promise);
-      return null;
+    @Nullable
+    private RxBleConnection getConnectionOrReject(@NonNull final Device device,
+                                                  @NonNull SafePromise promise) {
+        final RxBleConnection connection = device.getConnection();
+        if (connection == null) {
+            BleErrorUtils.deviceNotConnected(device.getNativeDevice().getMacAddress()).reject(promise);
+            return null;
+        }
+        return connection;
+    }
+
+    @Nullable
+    private List<Service> getServicesOrReject(@NonNull final Device device,
+                                              @NonNull Promise promise) {
+        final List<Service> services = device.getServices();
+        if (services == null) {
+            BleErrorUtils.deviceServicesNotDiscovered(device.getNativeDevice().getMacAddress()).reject(promise);
+            return null;
+        }
+        return services;
     }
 
     final Characteristic characteristic = service.getCharacteristicByUUID(uuid);
