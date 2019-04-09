@@ -593,7 +593,7 @@ public class BleModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void requestConnectionPriorityForDevice(final String deviceId, int connectionPriority,
-                                                   final String transactionId, final Promise promise) {
+                                                   final String transactionId, final SafePromise promise) {
         final Device device = getDeviceOrReject(deviceId, promise);
         if (device == null) {
             return;
@@ -634,7 +634,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void requestMTUForDevice(final String deviceId, int mtu, final String transactionId, final Promise promise) {
+    public void requestMTUForDevice(final String deviceId, int mtu, final String transactionId, final SafePromise promise) {
         final Device device = getDeviceOrReject(deviceId, promise);
         if (device == null) {
             return;
@@ -678,7 +678,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void readRSSIForDevice(final String deviceId, final String transactionId, final Promise promise) {
+    public void readRSSIForDevice(final String deviceId, final String transactionId, final SafePromise promise) {
         final Device device = getDeviceOrReject(deviceId, promise);
         if (device == null) {
             return;
