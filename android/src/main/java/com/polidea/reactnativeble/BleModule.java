@@ -20,6 +20,7 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.bridge.WritableArray;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.polidea.reactnativeble.converter.RxBleScanResultConverter;
 import com.polidea.reactnativeble.errors.BleError;
@@ -33,7 +34,6 @@ import com.polidea.reactnativeble.utils.IdGenerator;
 import com.polidea.reactnativeble.utils.LogLevel;
 import com.polidea.reactnativeble.utils.ReadableArrayConverter;
 import com.polidea.reactnativeble.utils.RefreshGattCustomOperation;
-import com.polidea.reactnativeble.utils.SafePromise;
 import com.polidea.reactnativeble.utils.UUIDConverter;
 import com.polidea.reactnativeble.wrapper.Characteristic;
 import com.polidea.reactnativeble.wrapper.Device;
@@ -216,7 +216,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void logLevel(SafePromise promise) {
+    public void logLevel(Promise promise) {
         promise.resolve(LogLevel.fromLogLevel(currentLogLevel));
     }
 
@@ -224,14 +224,14 @@ public class BleModule extends ReactContextBaseJavaModule {
     // ----------------------------------------------------------------------
 
     @ReactMethod
-    public void enable(final String transactionId, final SafePromise promise) {
+    public void enable(final String transactionId, final Promise promise) {
         final ReactApplicationContext context = getReactApplicationContext();
         final BluetoothManager bluetoothManager = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
         if (bluetoothManager == null) {
             new BleError(BleErrorCode.BluetoothStateChangeFailed, "BluetoothManager is null", null).reject(promise);
             return;
         }
-        final SafePromise safePromise = new SafePromise(promise);
+        final Promise safePromise = new Promise(promise);
         final BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
         final Subscription subscription = new RxBleAdapterStateObservable(context)
                 .takeUntil(new Func1<RxBleAdapterStateObservable.BleAdapterState, Boolean>() {
@@ -269,14 +269,14 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void disable(final String transactionId, final SafePromise promise) {
+    public void disable(final String transactionId, final Promise promise) {
         final ReactApplicationContext context = getReactApplicationContext();
         final BluetoothManager bluetoothManager = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
         if (bluetoothManager == null) {
             new BleError(BleErrorCode.BluetoothStateChangeFailed, "BluetoothManager is null", null).reject(promise);
             return;
         }
-        final SafePromise safePromise = new SafePromise(promise);
+        final Promise safePromise = new Promise(promise);
         final BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
         final Subscription subscription = new RxBleAdapterStateObservable(context)
                 .takeUntil(new Func1<RxBleAdapterStateObservable.BleAdapterState, Boolean>() {
@@ -314,7 +314,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void state(SafePromise promise) {
+    public void state(Promise promise) {
         promise.resolve(getCurrentState());
     }
 
@@ -531,7 +531,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     // ---------------------------------------------------------------------
 
     @ReactMethod
-    public void devices(final ReadableArray deviceIdentifiers, final SafePromise promise) {
+    public void devices(final ReadableArray deviceIdentifiers, final Promise promise) {
         if (rxBleClient == null) {
             throw new IllegalStateException("BleManager not created when tried connecting to device");
         }
@@ -555,7 +555,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void connectedDevices(final ReadableArray serviceUUIDs, final SafePromise promise) {
+    public void connectedDevices(final ReadableArray serviceUUIDs, final Promise promise) {
         if (rxBleClient == null) {
             throw new IllegalStateException("BleManager not created when tried connecting to device");
         }
@@ -591,7 +591,7 @@ public class BleModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void requestConnectionPriorityForDevice(final String deviceId, int connectionPriority,
-                                                   final String transactionId, final SafePromise promise) {
+                                                   final String transactionId, final Promise promise) {
         final Device device = getDeviceOrReject(deviceId, promise);
         if (device == null) {
             return;
@@ -603,7 +603,7 @@ public class BleModule extends ReactContextBaseJavaModule {
         }
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            final SafePromise safePromise = new SafePromise(promise);
+            final Promise safePromise = new Promise(promise);
             final Subscription subscription = connection
                     .requestConnectionPriority(connectionPriority, 1, TimeUnit.MILLISECONDS).doOnUnsubscribe(new Action0() {
                         @Override
@@ -632,7 +632,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void requestMTUForDevice(final String deviceId, int mtu, final String transactionId, final SafePromise promise) {
+    public void requestMTUForDevice(final String deviceId, int mtu, final String transactionId, final Promise promise) {
         final Device device = getDeviceOrReject(deviceId, promise);
         if (device == null) {
             return;
@@ -644,7 +644,7 @@ public class BleModule extends ReactContextBaseJavaModule {
         }
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            final SafePromise safePromise = new SafePromise(promise);
+            final Promise safePromise = new Promise(promise);
             final Subscription subscription = connection.requestMtu(mtu).doOnUnsubscribe(new Action0() {
                 @Override
                 public void call() {
@@ -676,7 +676,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void readRSSIForDevice(final String deviceId, final String transactionId, final SafePromise promise) {
+    public void readRSSIForDevice(final String deviceId, final String transactionId, final Promise promise) {
         final Device device = getDeviceOrReject(deviceId, promise);
         if (device == null) {
             return;
@@ -686,7 +686,7 @@ public class BleModule extends ReactContextBaseJavaModule {
             return;
         }
 
-        final SafePromise safePromise = new SafePromise(promise);
+        final Promise safePromise = new Promise(promise);
         final Subscription subscription = connection.readRssi().doOnUnsubscribe(new Action0() {
             @Override
             public void call() {
@@ -715,8 +715,8 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void connectToDevice(final String deviceId, @Nullable ReadableMap options, final SafePromise promise) {
-        final SafePromise safePromise = new SafePromise(promise);
+    public void connectToDevice(final String deviceId, @Nullable ReadableMap options, final Promise promise) {
+        final Promise safePromise = new Promise(promise);
 
         if (rxBleClient == null) {
             throw new IllegalStateException("BleManager not created when tried connecting to device");
@@ -753,12 +753,12 @@ public class BleModule extends ReactContextBaseJavaModule {
         }
 
         safeConnectToDevice(device, autoConnect, requestMtu, refreshGattMoment, timeout, connectionPriority,
-                new SafePromise(promise));
+                new Promise(promise));
     }
 
     private void safeConnectToDevice(final RxBleDevice device, final boolean autoConnect, final int requestMtu,
                                      final RefreshGattMoment refreshGattMoment, final Integer timeout, final int connectionPriority,
-                                     final SafePromise promise) {
+                                     final Promise promise) {
 
         Observable<RxBleConnection> connect = device.establishConnection(autoConnect).doOnUnsubscribe(new Action0() {
             @Override
@@ -865,7 +865,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void cancelDeviceConnection(String deviceId, SafePromise promise) {
+    public void cancelDeviceConnection(String deviceId, Promise promise) {
         if (rxBleClient == null) {
             throw new IllegalStateException("BleManager not created when tried cancel device connection");
         }
@@ -884,7 +884,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void isDeviceConnected(String deviceId, SafePromise promise) {
+    public void isDeviceConnected(String deviceId, Promise promise) {
         if (rxBleClient == null) {
             throw new IllegalStateException("BleManager not created when tried cancel device connection");
         }
@@ -904,17 +904,17 @@ public class BleModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void discoverAllServicesAndCharacteristicsForDevice(String deviceId, final String transactionId,
-                                                               final SafePromise promise) {
+                                                               final Promise promise) {
         final Device device = getDeviceOrReject(deviceId, promise);
         if (device == null) {
             return;
         }
 
-        safeDiscoverAllServicesAndCharacteristicsForDevice(device, transactionId, new SafePromise(promise));
+        safeDiscoverAllServicesAndCharacteristicsForDevice(device, transactionId, new Promise(promise));
     }
 
     private void safeDiscoverAllServicesAndCharacteristicsForDevice(final Device device, final String transactionId,
-                                                                    final SafePromise promise) {
+                                                                    final Promise promise) {
         final RxBleConnection connection = getConnectionOrReject(device, promise);
         if (connection == null) {
             return;
@@ -963,7 +963,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     // ----------------------------------------------------
 
     @ReactMethod
-    public void servicesForDevice(final String deviceId, final SafePromise promise) {
+    public void servicesForDevice(final String deviceId, final Promise promise) {
         final Device device = getDeviceOrReject(deviceId, promise);
         if (device == null) {
             return;
@@ -982,7 +982,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void characteristicsForDevice(final String deviceId, final String serviceUUID, final SafePromise promise) {
+    public void characteristicsForDevice(final String deviceId, final String serviceUUID, final Promise promise) {
 
         final UUID convertedServiceUUID = UUIDConverter.convert(serviceUUID);
         if (convertedServiceUUID == null) {
@@ -1005,7 +1005,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void characteristicsForService(final int serviceIdentifier, final SafePromise promise) {
+    public void characteristicsForService(final int serviceIdentifier, final Promise promise) {
         Service service = discoveredServices.get(serviceIdentifier);
         if (service == null) {
             BleErrorUtils.serviceNotFound(Integer.toString(serviceIdentifier)).reject(promise);
@@ -1015,7 +1015,7 @@ public class BleModule extends ReactContextBaseJavaModule {
         characteristicsForService(service, promise);
     }
 
-    private void characteristicsForService(final Service service, final SafePromise promise) {
+    private void characteristicsForService(final Service service, final Promise promise) {
         WritableArray jsCharacteristics = Arguments.createArray();
         for (Characteristic characteristic : service.getCharacteristics()) {
             jsCharacteristics.pushMap(characteristic.toJSObject(null));
@@ -1029,7 +1029,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void writeCharacteristicForDevice(final String deviceId, final String serviceUUID,
                                              final String characteristicUUID, final String valueBase64, final Boolean response, final String transactionId,
-                                             final SafePromise promise) {
+                                             final Promise promise) {
 
         final Characteristic characteristic = getCharacteristicOrReject(deviceId, serviceUUID, characteristicUUID, promise);
         if (characteristic == null) {
@@ -1050,7 +1050,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     // Scale
     @ReactMethod
     public void setUserProfileToScales(final String deviceId, int age, int height, String gender,
-                                       final String transactionId, final SafePromise promise) {
+                                       final String transactionId, final Promise promise) {
 
         final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
                 scaleWriteCharacteristic, promise);
@@ -1077,7 +1077,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     // Scale
     @ReactMethod
     public void setUserProfileToAlternativeScale(final String deviceId, final String user, int age, int height, int gender,
-                                                 final String transactionId, final SafePromise promise) {
+                                                 final String transactionId, final Promise promise) {
 
         final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
                 alternativeScaleWriteCharacteristic, promise);
@@ -1111,7 +1111,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     // Scale
     @ReactMethod
     public void synchronizeAlternativeScale(final String deviceId, final String user, String measurement,
-                                            final String transactionId, final SafePromise promise) {
+                                            final String transactionId, final Promise promise) {
 
         final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
                 alternativeScaleWriteCharacteristic, promise);
@@ -1136,7 +1136,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     // Scale
     @ReactMethod
     public void selectProfileAlternativeScale(final String deviceId, final String user,
-                                              final String transactionId, final SafePromise promise) {
+                                              final String transactionId, final Promise promise) {
 
         final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
                 alternativeScaleWriteCharacteristic, promise);
@@ -1161,7 +1161,7 @@ public class BleModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void activateVibration(final String deviceId, final int duration, final String transactionId,
-                                  final SafePromise promise) {
+                                  final Promise promise) {
 
         final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
                 trackerWriteCharacteristic, promise);
@@ -1179,7 +1179,7 @@ public class BleModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void setDeviceTime(final String deviceId, final String date, final String transactionId,
-                              final SafePromise promise) {
+                              final Promise promise) {
 
         String sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
         final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
@@ -1203,7 +1203,7 @@ public class BleModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void getDetailedDayActivity(final String deviceId, final int date, final String transactionId,
-                                       final SafePromise promise) {
+                                       final Promise promise) {
 
         final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
                 trackerWriteCharacteristic, promise);
@@ -1221,7 +1221,7 @@ public class BleModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void getSummaryDayActivity(final String deviceId, final int date, final String transactionId,
-                                      final SafePromise promise) {
+                                      final Promise promise) {
 
         final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
                 trackerWriteCharacteristic, promise);
@@ -1238,7 +1238,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void monitorTrackerResponse(final String deviceId, final String transactionId, final SafePromise promise) {
+    public void monitorTrackerResponse(final String deviceId, final String transactionId, final Promise promise) {
 
         final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
                 trackerReadCharacteristic, promise);
@@ -1246,11 +1246,11 @@ public class BleModule extends ReactContextBaseJavaModule {
             return;
         }
 
-        safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+        safeMonitorCharacteristicForDevice(characteristic, transactionId, new Promise(promise));
     }
 
     @ReactMethod
-    public void monitorScaleResponse(final String deviceId, final String transactionId, final SafePromise promise) {
+    public void monitorScaleResponse(final String deviceId, final String transactionId, final Promise promise) {
 
         final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
                 scaleReadCharacteristic, promise);
@@ -1258,11 +1258,11 @@ public class BleModule extends ReactContextBaseJavaModule {
             return;
         }
 
-        safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+        safeMonitorCharacteristicForDevice(characteristic, transactionId, new Promise(promise));
     }
 
     @ReactMethod
-    public void monitorAlternativeScaleResponse(final String deviceId, final String transactionId, final SafePromise promise) {
+    public void monitorAlternativeScaleResponse(final String deviceId, final String transactionId, final Promise promise) {
 
         final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
                 alternativeScaleReadCharacteristic, promise);
@@ -1270,11 +1270,11 @@ public class BleModule extends ReactContextBaseJavaModule {
             return;
         }
 
-        safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+        safeMonitorCharacteristicForDevice(characteristic, transactionId, new Promise(promise));
     }
 
     @ReactMethod
-    public void monitorAlternativeScaleFinalResponse(final String deviceId, final String transactionId, final SafePromise promise) {
+    public void monitorAlternativeScaleFinalResponse(final String deviceId, final String transactionId, final Promise promise) {
 
         final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
                 alternativeScaleReadFinalCharacteristic, promise);
@@ -1282,11 +1282,11 @@ public class BleModule extends ReactContextBaseJavaModule {
             return;
         }
 
-        safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+        safeMonitorCharacteristicForDevice(characteristic, transactionId, new Promise(promise));
     }
 
     private void writeProperCharacteristicWithValue(final Characteristic characteristic, final byte[] valueBase64,
-                                                    final Boolean response, final String transactionId, final SafePromise promise) {
+                                                    final Boolean response, final String transactionId, final Promise promise) {
         final byte[] value;
         try {
             value = valueBase64;
@@ -1299,12 +1299,12 @@ public class BleModule extends ReactContextBaseJavaModule {
         characteristic.getNativeCharacteristic().setWriteType(
                 response ? BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT : BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
 
-        safeWriteCharacteristicForDevice(characteristic, value, transactionId, new SafePromise(promise));
+        safeWriteCharacteristicForDevice(characteristic, value, transactionId, new Promise(promise));
     }
 
     @ReactMethod
     public void writeCharacteristicForService(final int serviceIdentifier, final String characteristicUUID,
-                                              final String valueBase64, final Boolean response, final String transactionId, final SafePromise promise) {
+                                              final String valueBase64, final Boolean response, final String transactionId, final Promise promise) {
         final Characteristic characteristic = getCharacteristicOrReject(serviceIdentifier, characteristicUUID, promise);
         if (characteristic == null) {
             return;
@@ -1315,7 +1315,7 @@ public class BleModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void writeCharacteristic(final int characteristicIdentifier, final String valueBase64, final Boolean response,
-                                    final String transactionId, final SafePromise promise) {
+                                    final String transactionId, final Promise promise) {
         final Characteristic characteristic = getCharacteristicOrReject(characteristicIdentifier, promise);
         if (characteristic == null) {
             return;
@@ -1325,7 +1325,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     private void writeCharacteristicWithValue(final Characteristic characteristic, final String valueBase64,
-                                              final Boolean response, final String transactionId, final SafePromise promise) {
+                                              final Boolean response, final String transactionId, final Promise promise) {
         final byte[] value;
         try {
             value = Base64Converter.decode(valueBase64);
@@ -1338,11 +1338,11 @@ public class BleModule extends ReactContextBaseJavaModule {
         characteristic.getNativeCharacteristic().setWriteType(
                 response ? BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT : BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
 
-        safeWriteCharacteristicForDevice(characteristic, value, transactionId, new SafePromise(promise));
+        safeWriteCharacteristicForDevice(characteristic, value, transactionId, new Promise(promise));
     }
 
     private void safeWriteCharacteristicForDevice(final Characteristic characteristic, final byte[] value,
-                                                  final String transactionId, final SafePromise promise) {
+                                                  final String transactionId, final Promise promise) {
         final RxBleConnection connection = getConnectionOrReject(characteristic.getService().getDevice(), promise);
         if (connection == null) {
             return;
@@ -1384,42 +1384,42 @@ public class BleModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void readCharacteristicForDevice(final String deviceId, final String serviceUUID,
-                                            final String characteristicUUID, final String transactionId, final SafePromise promise) {
+                                            final String characteristicUUID, final String transactionId, final Promise promise) {
 
         final Characteristic characteristic = getCharacteristicOrReject(deviceId, serviceUUID, characteristicUUID, promise);
         if (characteristic == null) {
             return;
         }
 
-        safeReadCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+        safeReadCharacteristicForDevice(characteristic, transactionId, new Promise(promise));
     }
 
     @ReactMethod
     public void readCharacteristicForService(final int serviceIdentifier, final String characteristicUUID,
-                                             final String transactionId, final SafePromise promise) {
+                                             final String transactionId, final Promise promise) {
 
         final Characteristic characteristic = getCharacteristicOrReject(serviceIdentifier, characteristicUUID, promise);
         if (characteristic == null) {
             return;
         }
 
-        safeReadCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+        safeReadCharacteristicForDevice(characteristic, transactionId, new Promise(promise));
     }
 
     @ReactMethod
     public void readCharacteristic(final int characteristicIdentifier, final String transactionId,
-                                   final SafePromise promise) {
+                                   final Promise promise) {
 
         final Characteristic characteristic = getCharacteristicOrReject(characteristicIdentifier, promise);
         if (characteristic == null) {
             return;
         }
 
-        safeReadCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+        safeReadCharacteristicForDevice(characteristic, transactionId, new Promise(promise));
     }
 
     private void safeReadCharacteristicForDevice(final Characteristic characteristic, final String transactionId,
-                                                 final SafePromise promise) {
+                                                 final Promise promise) {
         final RxBleConnection connection = getConnectionOrReject(characteristic.getService().getDevice(), promise);
         if (connection == null) {
             return;
@@ -1462,42 +1462,42 @@ public class BleModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void monitorCharacteristicForDevice(final String deviceId, final String serviceUUID,
-                                               final String characteristicUUID, final String transactionId, final SafePromise promise) {
+                                               final String characteristicUUID, final String transactionId, final Promise promise) {
 
         final Characteristic characteristic = getCharacteristicOrReject(deviceId, serviceUUID, characteristicUUID, promise);
         if (characteristic == null) {
             return;
         }
 
-        safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+        safeMonitorCharacteristicForDevice(characteristic, transactionId, new Promise(promise));
     }
 
     @ReactMethod
     public void monitorCharacteristicForService(final int serviceIdentifier, final String characteristicUUID,
-                                                final String transactionId, final SafePromise promise) {
+                                                final String transactionId, final Promise promise) {
 
         final Characteristic characteristic = getCharacteristicOrReject(serviceIdentifier, characteristicUUID, promise);
         if (characteristic == null) {
             return;
         }
 
-        safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+        safeMonitorCharacteristicForDevice(characteristic, transactionId, new Promise(promise));
     }
 
     @ReactMethod
     public void monitorCharacteristic(final int characteristicIdentifier, final String transactionId,
-                                      final SafePromise promise) {
+                                      final Promise promise) {
 
         final Characteristic characteristic = getCharacteristicOrReject(characteristicIdentifier, promise);
         if (characteristic == null) {
             return;
         }
 
-        safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+        safeMonitorCharacteristicForDevice(characteristic, transactionId, new Promise(promise));
     }
 
     private void safeMonitorCharacteristicForDevice(final Characteristic characteristic, final String transactionId,
-                                                    final SafePromise promise) {
+                                                    final Promise promise) {
         final RxBleConnection connection = getConnectionOrReject(characteristic.getService().getDevice(), promise);
         if (connection == null) {
             return;
@@ -1563,7 +1563,7 @@ public class BleModule extends ReactContextBaseJavaModule {
 
     @Nullable
     private Characteristic getCharacteristicOrReject(@NonNull final String deviceId, @NonNull final String serviceUUID,
-                                                     @NonNull final String characteristicUUID, @NonNull SafePromise promise) {
+                                                     @NonNull final String characteristicUUID, @NonNull Promise promise) {
 
         final UUID[] UUIDs = UUIDConverter.convert(serviceUUID, characteristicUUID);
         if (UUIDs == null) {
@@ -1594,7 +1594,7 @@ public class BleModule extends ReactContextBaseJavaModule {
 
     @Nullable
     private Characteristic getCharacteristicOrReject(final int serviceIdentifier,
-                                                     @NonNull final String characteristicUUID, @NonNull SafePromise promise) {
+                                                     @NonNull final String characteristicUUID, @NonNull Promise promise) {
 
         final UUID uuid = UUIDConverter.convert(characteristicUUID);
         if (uuid == null) {
@@ -1618,7 +1618,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @Nullable
-    private Characteristic getCharacteristicOrReject(final int characteristicIdentifier, @NonNull SafePromise promise) {
+    private Characteristic getCharacteristicOrReject(final int characteristicIdentifier, @NonNull Promise promise) {
 
         final Characteristic characteristic = discoveredCharacteristics.get(characteristicIdentifier);
         if (characteristic == null) {
@@ -1633,7 +1633,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     // -------------------------------------------------------------------
 
     @Nullable
-    private RxBleConnection getConnectionOrReject(@NonNull final Device device, @NonNull SafePromise promise) {
+    private RxBleConnection getConnectionOrReject(@NonNull final Device device, @NonNull Promise promise) {
         final RxBleConnection connection = device.getConnection();
         if (connection == null) {
             BleErrorUtils.deviceNotConnected(device.getNativeDevice().getMacAddress()).reject(promise);
@@ -1643,7 +1643,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @Nullable
-    private List<Service> getServicesOrReject(@NonNull final Device device, @NonNull SafePromise promise) {
+    private List<Service> getServicesOrReject(@NonNull final Device device, @NonNull Promise promise) {
         final List<Service> services = device.getServices();
         if (services == null) {
             BleErrorUtils.deviceServicesNotDiscovered(device.getNativeDevice().getMacAddress()).reject(promise);
@@ -1653,7 +1653,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @Nullable
-    private Device getDeviceOrReject(@NonNull final String deviceId, @NonNull SafePromise promise) {
+    private Device getDeviceOrReject(@NonNull final String deviceId, @NonNull Promise promise) {
         final Device device = connectedDevices.get(deviceId);
         if (device == null) {
             BleErrorUtils.deviceNotConnected(deviceId).reject(promise);
