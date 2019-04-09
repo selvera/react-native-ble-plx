@@ -1567,6 +1567,103 @@ public void monitorCharacteristicForService(final int serviceIdentifier,
   // Mark: Characteristics getters
   // ---------------------------------------------------------------
 
+    @Nullable
+    private Characteristic getCharacteristicOrReject(@NonNull final String deviceId,
+                                                     @NonNull final String serviceUUID,
+                                                     @NonNull final String characteristicUUID,
+                                                     @NonNull Promise promise) {
+
+        final UUID[] UUIDs = UUIDConverter.convert(serviceUUID, characteristicUUID);
+        if (UUIDs == null) {
+            BleErrorUtils.invalidIdentifiers(serviceUUID, characteristicUUID).reject(promise);
+            return null;
+        }
+
+    final Characteristic characteristic = getCharacteristicOrReject(serviceIdentifier, characteristicUUID, promise);
+    if (characteristic == null) {
+      return;
+    }
+
+    safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+  }
+
+  @ReactMethod
+  public void monitorCharacteristic(final int characteristicIdentifier, final String transactionId,
+      final Promise promise) {
+
+    final Characteristic characteristic = getCharacteristicOrReject(characteristicIdentifier, promise);
+    if (characteristic == null) {
+      return;
+    }
+
+    safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+  }
+
+  private void safeMonitorCharacteristicForDevice(final Characteristic characteristic, final String transactionId,
+      final SafePromise promise) {
+    final RxBleConnection connection = getConnectionOrReject(characteristic.getService().getDevice(), promise);
+    if (connection == null) {
+      return;
+    }
+
+    final BluetoothGattCharacteristic gattCharacteristic = characteristic.getNativeCharacteristic();
+
+    final Subscription subscription = Observable.just(connection)
+        .flatMap(new Func1<RxBleConnection, Observable<Observable<byte[]>>>() {
+          @Override
+          public Observable<Observable<byte[]>> call(RxBleConnection connection) {
+            int properties = gattCharacteristic.getProperties();
+            if ((properties & BluetoothGattCharacteristic.PROPERTY_NOTIFY) != 0) {
+              return connection.setupNotification(gattCharacteristic, NotificationSetupMode.QUICK_SETUP);
+            }
+
+            if ((properties & BluetoothGattCharacteristic.PROPERTY_INDICATE) != 0) {
+              return connection.setupIndication(gattCharacteristic, NotificationSetupMode.QUICK_SETUP);
+            }
+
+            return Observable.error(new CannotMonitorCharacteristicException(gattCharacteristic));
+          }
+        }).flatMap(new Func1<Observable<byte[]>, Observable<byte[]>>() {
+          @Override
+          public Observable<byte[]> call(Observable<byte[]> observable) {
+            return observable;
+          }
+        }).doOnUnsubscribe(new Action0() {
+          @Override
+          public void call() {
+            promise.resolve(null);
+            transactions.removeSubscription(transactionId);
+          }
+        }).subscribe(new Observer<byte[]>() {
+          @Override
+          public void onCompleted() {
+            promise.resolve(null);
+            transactions.removeSubscription(transactionId);
+          }
+
+          @Override
+          public void onError(Throwable e) {
+            errorConverter.toError(e).reject(promise);
+            transactions.removeSubscription(transactionId);
+          }
+
+          @Override
+          public void onNext(byte[] bytes) {
+            characteristic.logValue("Notification from", bytes);
+            WritableArray jsResult = Arguments.createArray();
+            jsResult.pushNull();
+            jsResult.pushMap(characteristic.toJSObject(bytes));
+            jsResult.pushString(transactionId);
+            sendEvent(Event.ReadEvent, jsResult);
+          }
+        });
+
+    transactions.replaceSubscription(transactionId, subscription);
+  }
+
+  // Mark: Characteristics getters
+  // ---------------------------------------------------------------
+
   @Nullable
   private Characteristic getCharacteristicOrReject(@NonNull final String deviceId, @NonNull final String serviceUUID,
       @NonNull final String characteristicUUID, @NonNull Promise promise) {
@@ -1599,27 +1696,13 @@ public void monitorCharacteristicForService(final int serviceIdentifier,
   }
 
   @Nullable
-  private Characteristic getCharacteristicOrReject(final int characteristicIdentifier,
-                                                    @NonNull Promise promise) {
+  private Characteristic getCharacteristicOrReject(final int serviceIdentifier,
+      @NonNull final String characteristicUUID, @NonNull Promise promise) {
 
-      final Characteristic characteristic = discoveredCharacteristics.get(characteristicIdentifier);
-      if (characteristic == null) {
-          BleErrorUtils.characteristicNotFound(Integer.toString(characteristicIdentifier)).reject(promise);
-          return null;
-      }
-
-      return characteristic;
-  }
-
-    @Nullable
-    private RxBleConnection getConnectionOrReject(@NonNull final Device device,
-                                                  @NonNull Promise promise) {
-        final RxBleConnection connection = device.getConnection();
-        if (connection == null) {
-            BleErrorUtils.deviceNotConnected(device.getNativeDevice().getMacAddress()).reject(promise);
-            return null;
-        }
-        return connection;
+    final UUID uuid = UUIDConverter.convert(characteristicUUID);
+    if (uuid == null) {
+      BleErrorUtils.invalidIdentifiers(characteristicUUID).reject(promise);
+      return null;
     }
 
     @Nullable
@@ -1631,6 +1714,17 @@ public void monitorCharacteristicForService(final int serviceIdentifier,
             return null;
         }
         return connection;
+    }
+
+    @Nullable
+    private List<Service> getServicesOrReject(@NonNull final Device device,
+                                              @NonNull Promise promise) {
+        final List<Service> services = device.getServices();
+        if (services == null) {
+            BleErrorUtils.deviceServicesNotDiscovered(device.getNativeDevice().getMacAddress()).reject(promise);
+            return null;
+        }
+        return services;
     }
 
     final Characteristic characteristic = service.getCharacteristicByUUID(uuid);
@@ -1654,6 +1748,38 @@ public void monitorCharacteristicForService(final int serviceIdentifier,
     return characteristic;
   }
 
+  // Mark: Device getters
+  // -------------------------------------------------------------------
+
+  @Nullable
+  private RxBleConnection getConnectionOrReject(@NonNull final Device device, @NonNull Promise promise) {
+    final RxBleConnection connection = device.getConnection();
+    if (connection == null) {
+      BleErrorUtils.deviceNotConnected(device.getNativeDevice().getMacAddress()).reject(promise);
+      return null;
+    }
+    return connection;
+  }
+
+  @Nullable
+  private List<Service> getServicesOrReject(@NonNull final Device device, @NonNull Promise promise) {
+    final List<Service> services = device.getServices();
+    if (services == null) {
+      BleErrorUtils.deviceServicesNotDiscovered(device.getNativeDevice().getMacAddress()).reject(promise);
+      return null;
+    }
+    return services;
+  }
+
+  @Nullable
+  private Device getDeviceOrReject(@NonNull final String deviceId, @NonNull Promise promise) {
+    final Device device = connectedDevices.get(deviceId);
+    if (device == null) {
+      BleErrorUtils.deviceNotConnected(deviceId).reject(promise);
+      return null;
+    }
+    return device;
+  }
   // Mark: Device getters
   // -------------------------------------------------------------------
 
