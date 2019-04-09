@@ -1474,6 +1474,13 @@ public class BleModule extends ReactContextBaseJavaModule {
 
     safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
   }
+  
+  private void safeMonitorCharacteristicForDevice(final Characteristic characteristic, final String transactionId,
+      final SafePromise promise) {
+      final RxBleConnection connection = getConnectionOrReject(characteristic.getService().getDevice(), promise);
+      if (connection == null) {
+        return;
+      }
 
         final BluetoothGattCharacteristic gattCharacteristic = characteristic.getNativeCharacteristic();
 
@@ -1496,42 +1503,42 @@ public class BleModule extends ReactContextBaseJavaModule {
                 return Observable.error(new CannotMonitorCharacteristicException(gattCharacteristic));
             }
         })
-                .flatMap(new Func1<Observable<byte[]>, Observable<byte[]>>() {
-                    @Override
-                    public Observable<byte[]> call(Observable<byte[]> observable) {
-                        return observable;
-                    }
-                })
-                .doOnUnsubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        promise.resolve(null);
-                        transactions.removeSubscription(transactionId);
-                    }
-                })
-                .subscribe(new Observer<byte[]>() {
-                    @Override
-                    public void onCompleted() {
-                        promise.resolve(null);
-                        transactions.removeSubscription(transactionId);
-                    }
+          .flatMap(new Func1<Observable<byte[]>, Observable<byte[]>>() {
+              @Override
+              public Observable<byte[]> call(Observable<byte[]> observable) {
+                  return observable;
+              }
+          })
+          .doOnUnsubscribe(new Action0() {
+              @Override
+              public void call() {
+                  promise.resolve(null);
+                  transactions.removeSubscription(transactionId);
+              }
+          })
+          .subscribe(new Observer<byte[]>() {
+              @Override
+              public void onCompleted() {
+                  promise.resolve(null);
+                  transactions.removeSubscription(transactionId);
+              }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        errorConverter.toError(e).reject(promise);
-                        transactions.removeSubscription(transactionId);
-                    }
+              @Override
+              public void onError(Throwable e) {
+                  errorConverter.toError(e).reject(promise);
+                  transactions.removeSubscription(transactionId);
+              }
 
-                    @Override
-                    public void onNext(byte[] bytes) {
-                        characteristic.logValue("Notification from", bytes);
-                        WritableArray jsResult = Arguments.createArray();
-                        jsResult.pushNull();
-                        jsResult.pushMap(characteristic.toJSObject(bytes));
-                        jsResult.pushString(transactionId);
-                        sendEvent(Event.ReadEvent, jsResult);
-                    }
-                });
+              @Override
+              public void onNext(byte[] bytes) {
+                  characteristic.logValue("Notification from", bytes);
+                  WritableArray jsResult = Arguments.createArray();
+                  jsResult.pushNull();
+                  jsResult.pushMap(characteristic.toJSObject(bytes));
+                  jsResult.pushString(transactionId);
+                  sendEvent(Event.ReadEvent, jsResult);
+              }
+          });
 
         transactions.replaceSubscription(transactionId, subscription);
     }
