@@ -2,6 +2,7 @@ package com.polidea.reactnativeble;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
@@ -1475,16 +1476,19 @@ public class BleModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void monitorCharacteristicForService(final int serviceIdentifier, final String characteristicUUID,
-      final String transactionId, final Promise promise) {
+public void monitorCharacteristicForService(final int serviceIdentifier,
+                                            final String characteristicUUID,
+                                            final String transactionId,
+                                            final Promise promise) {
 
-    final Characteristic characteristic = getCharacteristicOrReject(serviceIdentifier, characteristicUUID, promise);
+    final Characteristic characteristic = getCharacteristicOrReject(
+            serviceIdentifier, characteristicUUID, promise);
     if (characteristic == null) {
-      return;
+        return;
     }
 
     safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
-  }
+}
 
   @ReactMethod
   public void monitorCharacteristic(final int characteristicIdentifier, final String transactionId,
@@ -1595,19 +1599,38 @@ public class BleModule extends ReactContextBaseJavaModule {
   }
 
   @Nullable
-  private Characteristic getCharacteristicOrReject(final int serviceIdentifier,
-      @NonNull final String characteristicUUID, @NonNull Promise promise) {
+  private Characteristic getCharacteristicOrReject(final int characteristicIdentifier,
+                                                    @NonNull Promise promise) {
 
-    final UUID uuid = UUIDConverter.convert(characteristicUUID);
-    if (uuid == null) {
-      BleErrorUtils.invalidIdentifiers(characteristicUUID).reject(promise);
-      return null;
+      final Characteristic characteristic = discoveredCharacteristics.get(characteristicIdentifier);
+      if (characteristic == null) {
+          BleErrorUtils.characteristicNotFound(Integer.toString(characteristicIdentifier)).reject(promise);
+          return null;
+      }
+
+      return characteristic;
+  }
+
+    @Nullable
+    private RxBleConnection getConnectionOrReject(@NonNull final Device device,
+                                                  @NonNull Promise promise) {
+        final RxBleConnection connection = device.getConnection();
+        if (connection == null) {
+            BleErrorUtils.deviceNotConnected(device.getNativeDevice().getMacAddress()).reject(promise);
+            return null;
+        }
+        return connection;
     }
 
-    final Service service = discoveredServices.get(serviceIdentifier);
-    if (service == null) {
-      BleErrorUtils.serviceNotFound(Integer.toString(serviceIdentifier)).reject(promise);
-      return null;
+    @Nullable
+    private RxBleConnection getConnectionOrReject(@NonNull final Device device,
+                                                  @NonNull SafePromise promise) {
+        final RxBleConnection connection = device.getConnection();
+        if (connection == null) {
+            BleErrorUtils.deviceNotConnected(device.getNativeDevice().getMacAddress()).reject(promise);
+            return null;
+        }
+        return connection;
     }
 
     final Characteristic characteristic = service.getCharacteristicByUUID(uuid);

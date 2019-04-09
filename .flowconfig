@@ -13,9 +13,6 @@
 ; "node_modules/react-native" but in the source repo it is in the root
 .*/Libraries/react-native/React.js
 
-; Ignore examples
-.*/examples
-
 ; Ignore dev dependencies
 .*/node_modules/documentation
 
@@ -73,4 +70,4 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
 suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 
 [version]
-^0.78.0
+^0.86.0

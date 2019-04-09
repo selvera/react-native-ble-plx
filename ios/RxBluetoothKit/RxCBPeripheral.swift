@@ -58,7 +58,10 @@ class RxCBPeripheral: RxPeripheralType {
     }
 
     var canSendWriteWithoutResponse: Bool {
-        if #available(iOS 11.0, *) {
+        // Although available since iOS 11.0, on versions < iOS 11.2 canSendWriteWithoutResponse will always
+        // return false (on first try). We work around this issue by always returning true for < iOS 11.2.
+        // See: https://github.com/Polidea/react-native-ble-plx/issues/365
+        if #available(iOS 11.2, *) {
             return peripheral.canSendWriteWithoutResponse
         } else {
             return true
