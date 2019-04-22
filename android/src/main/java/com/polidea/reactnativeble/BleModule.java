@@ -88,6 +88,30 @@ public class BleModule extends ReactContextBaseJavaModule {
     @Nullable
     private RxBleClient rxBleClient;
 
+    // Scale Write Characteristic
+    private static final String scaleWriteCharacteristic = "0000fff3-0000-1000-8000-00805f9b34fb";
+
+    // Scale Read Characteristic
+    private static final String scaleReadCharacteristic = "0000fff4-0000-1000-8000-00805f9b34fb";
+
+    // Alternative Scale Read Characteristic
+    private static final String alternativeScaleReadCharacteristic = "0000fff3-0000-1000-8000-00805f9b34fb";
+
+    // Alternative Scale Final Read Characteristic
+    private static final String alternativeScaleReadFinalCharacteristic = "0000fff1-0000-1000-8000-00805f9b34fb";
+
+    // Alternative Scale Write Characteristic
+    private static final String alternativeScaleWriteCharacteristic = "0000fff2-0000-1000-8000-00805f9b34fb";
+
+    // Tracker Write Characteristic
+    private static final String trackerWriteCharacteristic = "0000fff6-0000-1000-8000-00805f9b34fb";
+
+    // Tracker Read Characteristic
+    private static final String trackerReadCharacteristic = "0000fff7-0000-1000-8000-00805f9b34fb";
+
+    // Tracker Service UUID
+    private static final String trackerServiceUUID = "0000fff0-0000-1000-8000-00805f9b34fb";
+      
     // Map of discovered devices.
     private HashMap<String, Device> discoveredDevices = new HashMap<>();
 
@@ -369,6 +393,88 @@ public class BleModule extends ReactContextBaseJavaModule {
     // Mark: Scanning ------------------------------------------------------------------------------
 
     @ReactMethod
+    public void startTrackerScan(@Nullable ReadableArray filteredUUIDs, @Nullable ReadableMap options) {
+      UUID uuids = UUID.fromString(trackerServiceUUID);
+
+      int scanMode = SCAN_MODE_LOW_POWER;
+      int callbackType = CALLBACK_TYPE_ALL_MATCHES;
+
+      if (options != null) {
+        if (options.hasKey("scanMode") && options.getType("scanMode") == ReadableType.Number) {
+          scanMode = options.getInt("scanMode");
+        }
+        if (options.hasKey("callbackType") && options.getType("callbackType") == ReadableType.Number) {
+          callbackType = options.getInt("callbackType");
+        }
+      }
+
+      safeStartTrackerScan(uuids, scanMode, callbackType);
+    }
+
+      private void safeStartTrackerScan(final UUID[] uuids, int scanMode, int callbackType) {
+        if (rxBleClient == null) {
+            throw new IllegalStateException("BleManager not created when tried to start device scan");
+        }
+
+        ScanSettings scanSettings = new ScanSettings.Builder()
+                .setScanMode(scanMode)
+                .setCallbackType(callbackType)
+                .build();
+
+        int length = uuids == null ? 0 : uuids.length;
+        ScanFilter filters[] = new ScanFilter[length];
+        for (int i =0; i< length; i++) {
+            filters[i] = new ScanFilter.Builder().setServiceUuid(ParcelUuid.fromString(uuids[i].toString())).build();
+        }
+
+        scanSubscription = rxBleClient
+                .scanBleDevices(scanSettings, filters)
+                .subscribe(new Action1<ScanResult>() {
+                    @Override
+                    public void call(ScanResult scanResult) {
+                        String deviceId = scanResult.getBleDevice().getMacAddress();
+                        if (!discoveredDevices.containsKey(deviceId)) {
+                            discoveredDevices.put(deviceId, new Device(scanResult.getBleDevice(), null));
+                        }
+                        sendEvent(Event.ScanEvent, scanConverter.toJSCallback(scanResult));
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        sendEvent(Event.ScanEvent, errorConverter.toError(throwable).toJSCallback());
+                    }
+                });
+    }
+
+    @ReactMethod
+    public void startScaleScan(@Nullable ReadableArray filteredUUIDs, @Nullable ReadableMap options) {
+        UUID[] uuids = null;
+
+        int scanMode = SCAN_MODE_LOW_POWER;
+        int callbackType = CALLBACK_TYPE_ALL_MATCHES;
+
+        if (options != null) {
+            if (options.hasKey("scanMode") && options.getType("scanMode") == ReadableType.Number) {
+                scanMode = options.getInt("scanMode");
+            }
+            if (options.hasKey("callbackType") && options.getType("callbackType") == ReadableType.Number) {
+                callbackType = options.getInt("callbackType");
+            }
+        }
+
+        if (filteredUUIDs != null) {
+            uuids = UUIDConverter.convert(filteredUUIDs);
+            if (uuids == null) {
+                sendEvent(Event.ScanEvent,
+                        BleErrorUtils.invalidIdentifiers(ReadableArrayConverter.toStringArray(filteredUUIDs)).toJSCallback());
+                return;
+            }
+        }
+
+        safeStartDeviceScan(uuids, scanMode, callbackType);
+    }
+
+    @ReactMethod
     public void startDeviceScan(@Nullable ReadableArray filteredUUIDs, @Nullable ReadableMap options) {
         UUID[] uuids = null;
 
@@ -429,6 +535,14 @@ public class BleModule extends ReactContextBaseJavaModule {
                         sendEvent(Event.ScanEvent, errorConverter.toError(throwable).toJSCallback());
                     }
                 });
+    }
+
+    public static byte calculateChecksum(byte[] message) {
+      int crcSum = 0x00;
+      for (int i = 0; i < 15; i++) {
+        crcSum += message[i];
+      }
+      return (byte) (crcSum > 0xFF ? (byte) (crcSum % 256) & 0xFF : (byte) (crcSum) & 0xFF);
     }
 
     @ReactMethod

@@ -12,6 +12,12 @@ public protocol BleClientManagerDelegate {
     func dispatchEvent(_ name: String, value: Any)
 }
 
+extension Data {
+    var checksum: Int {
+        return self.map { Int($0) }.reduce(0, +) & 0xff
+    }
+}
+
 @objc
 public class BleClientManager : NSObject {
 
