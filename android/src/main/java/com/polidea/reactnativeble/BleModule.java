@@ -1071,6 +1071,195 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     // Mark: Characteristics operations ------------------------------------------------------------
+    // Scale
+    @ReactMethod
+    public void setUserProfileToScales(final String deviceId, int age, int height, String gender,
+        final String transactionId, final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          scaleWriteCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      byte[] message = new byte[7];
+      message[0] = (byte) 0xfd;
+      message[1] = (byte) 0x53;
+      message[2] = 0x00;
+      message[3] = 0x00;
+      message[4] = (byte) 0xff;
+      age = age < 10 ? 10 : age;
+      age = age > 98 ? 98 : age;
+      message[5] = (byte) (gender.equalsIgnoreCase("male") ? age + 128 : age);
+      height = height < 100 ? 100 : height;
+      height = height > 218 ? 218 : height;
+      message[6] = (byte) height;
+
+      writeProperCharacteristicWithValue(characteristic, message, true, transactionId, promise);
+    }
+
+      // Scale
+    @ReactMethod
+    public void setUserProfileToAlternativeScale(final String deviceId, final String user, int age, int height, int gender,
+        final String transactionId, final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          alternativeScaleWriteCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      byte[] data = new byte[13];
+      height = height < 100 ? 100 : height;
+      height = height > 218 ? 218 : height;
+      age = age < 10 ? 10 : age;
+      age = age > 98 ? 98 : age;
+
+      data[0] = (byte) 0x81;
+      data[1] = 0x00;
+      data[2] = (byte) 0x81;
+      data[3] = (byte) user.substring(0,2).getBytes()[0];
+      data[4] = (byte) user.substring(2,4).getBytes()[0];
+      data[5] = (byte) user.substring(4,6).getBytes()[0];
+      data[6] = (byte) user.substring(6,8).getBytes()[0];
+      data[7] = 0x00;
+      data[8] =  (byte) height;
+      data[9] =  (byte) age;
+      data[10] = (byte) gender;
+      data[11] = 0x00;
+      data[12] = 0x00;
+
+      writeProperCharacteristicWithValue(characteristic, data, false, transactionId, promise);
+    }
+
+        // Scale
+    @ReactMethod
+    public void synchronizeAlternativeScale(final String deviceId, final String user, String measurement,
+        final String transactionId, final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          alternativeScaleWriteCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      byte[] data = new byte[8];
+
+      data[0] = 0x41;
+      data[1] = 0x00;
+      data[2] = (byte) 0x84;
+      data[3] = (byte) user.substring(0,2).getBytes()[0];
+      data[4] = (byte) user.substring(2,4).getBytes()[0];
+      data[5] = (byte) user.substring(4,6).getBytes()[0];
+      data[6] = (byte) user.substring(6,8).getBytes()[0];
+      data[7] = (byte) (measurement.equalsIgnoreCase("metric") ? 0 : 1);
+
+      writeProperCharacteristicWithValue(characteristic, data, false, transactionId, promise);
+    }
+
+          // Scale
+    @ReactMethod
+    public void selectProfileAlternativeScale(final String deviceId, final String user,
+        final String transactionId, final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          alternativeScaleWriteCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      byte[] data = new byte[7];
+
+      data[0] = 0x41;
+      data[1] = 0x00;
+      data[2] = (byte)0x82;
+      data[3] = (byte) user.substring(0,2).getBytes()[0];
+      data[4] = (byte) user.substring(2,4).getBytes()[0];
+      data[5] = (byte) user.substring(4,6).getBytes()[0];
+      data[6] = (byte) user.substring(6,8).getBytes()[0];
+
+      writeProperCharacteristicWithValue(characteristic, data, false, transactionId, promise);
+    }
+
+    // Tracker
+
+    @ReactMethod
+    public void activateVibration(final String deviceId, final int duration, final String transactionId,
+        final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          trackerWriteCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      byte[] message = new byte[16];
+      message[0] = 0x36;
+      message[1] = (byte) (duration > 10 ? 10 : duration);
+      message[15] = calculateChecksum(message);
+
+      writeProperCharacteristicWithValue(characteristic, message, true, transactionId, promise);
+    }
+
+    @ReactMethod
+    public void setDeviceTime(final String deviceId, final String date, final String transactionId,
+        final Promise promise) {
+
+      String sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          trackerWriteCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      byte[] message = new byte[16];
+      message[0] = 0x01;
+      message[1] = Byte.parseByte(sdf.substring(2, 4), 16);
+      message[2] = Byte.parseByte(sdf.substring(5, 7), 16);
+      message[3] = Byte.parseByte(sdf.substring(8, 10), 16);
+      message[4] = Byte.parseByte(sdf.substring(11, 13), 16);
+      message[5] = Byte.parseByte(sdf.substring(14, 16), 16);
+      message[6] = Byte.parseByte(sdf.substring(17, 19), 16);
+      message[15] = calculateChecksum(message);
+
+      writeProperCharacteristicWithValue(characteristic, message, true, transactionId, promise);
+    }
+
+    @ReactMethod
+    public void getDetailedDayActivity(final String deviceId, final int date, final String transactionId,
+        final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          trackerWriteCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      byte[] message = new byte[16];
+      message[0] = 0x43;
+      message[1] = (byte) date;
+      message[15] = calculateChecksum(message);
+
+      writeProperCharacteristicWithValue(characteristic, message, true, transactionId, promise);
+    }
+
+    @ReactMethod
+    public void getSummaryDayActivity(final String deviceId, final int date, final String transactionId,
+        final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          trackerWriteCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      byte[] message = new byte[16];
+      message[0] = 0x07;
+      message[1] = (byte) date;
+      message[15] = calculateChecksum(message);
+
+      writeProperCharacteristicWithValue(characteristic, message, true, transactionId, promise);
+    }
 
     @ReactMethod
     public void writeCharacteristicForDevice(final String deviceId,
@@ -1297,6 +1486,71 @@ public class BleModule extends ReactContextBaseJavaModule {
                 });
 
         transactions.replaceSubscription(transactionId, subscription);
+    }
+
+  @ReactMethod
+    public void monitorTrackerResponse(final String deviceId, final String transactionId, final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          trackerReadCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+    }
+
+    @ReactMethod
+    public void monitorScaleResponse(final String deviceId, final String transactionId, final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          scaleReadCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+    }
+
+    @ReactMethod
+    public void monitorAlternativeScaleResponse(final String deviceId, final String transactionId, final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          alternativeScaleReadCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+    }
+
+      @ReactMethod
+    public void monitorAlternativeScaleFinalResponse(final String deviceId, final String transactionId, final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          alternativeScaleReadFinalCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+    }
+    
+    private void writeProperCharacteristicWithValue(final Characteristic characteristic, final byte[] valueBase64,
+        final Boolean response, final String transactionId, final Promise promise) {
+      final byte[] value;
+      try {
+        value = valueBase64;
+      } catch (Throwable e) {
+        BleErrorUtils.invalidWriteDataForCharacteristic("Error",
+            UUIDConverter.fromUUID(characteristic.getNativeCharacteristic().getUuid())).reject(promise);
+        return;
+      }
+
+      characteristic.getNativeCharacteristic().setWriteType(
+          response ? BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT : BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+
+      safeWriteCharacteristicForDevice(characteristic, value, transactionId, new SafePromise(promise));
     }
 
     @ReactMethod
