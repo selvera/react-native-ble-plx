@@ -53,6 +53,9 @@ import com.polidea.rxandroidble.scan.ScanFilter;
 import com.polidea.rxandroidble.scan.ScanResult;
 import com.polidea.rxandroidble.scan.ScanSettings;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,6 +88,30 @@ public class BleModule extends ReactContextBaseJavaModule {
     @Nullable
     private RxBleClient rxBleClient;
 
+    // Scale Write Characteristic
+    private static final String scaleWriteCharacteristic = "0000fff3-0000-1000-8000-00805f9b34fb";
+
+    // Scale Read Characteristic
+    private static final String scaleReadCharacteristic = "0000fff4-0000-1000-8000-00805f9b34fb";
+
+    // Alternative Scale Read Characteristic
+    private static final String alternativeScaleReadCharacteristic = "0000fff3-0000-1000-8000-00805f9b34fb";
+
+    // Alternative Scale Final Read Characteristic
+    private static final String alternativeScaleReadFinalCharacteristic = "0000fff1-0000-1000-8000-00805f9b34fb";
+
+    // Alternative Scale Write Characteristic
+    private static final String alternativeScaleWriteCharacteristic = "0000fff2-0000-1000-8000-00805f9b34fb";
+
+    // Tracker Write Characteristic
+    private static final String trackerWriteCharacteristic = "0000fff6-0000-1000-8000-00805f9b34fb";
+
+    // Tracker Read Characteristic
+    private static final String trackerReadCharacteristic = "0000fff7-0000-1000-8000-00805f9b34fb";
+
+    // Tracker Service UUID
+    private static final String trackerServiceUUID = "0000fff0-0000-1000-8000-00805f9b34fb";
+      
     // Map of discovered devices.
     private HashMap<String, Device> discoveredDevices = new HashMap<>();
 
@@ -366,6 +393,88 @@ public class BleModule extends ReactContextBaseJavaModule {
     // Mark: Scanning ------------------------------------------------------------------------------
 
     @ReactMethod
+    public void startTrackerScan(@Nullable ReadableArray filteredUUIDs, @Nullable ReadableMap options) {
+      UUID uuids = UUID.fromString(trackerServiceUUID);
+
+      int scanMode = SCAN_MODE_LOW_POWER;
+      int callbackType = CALLBACK_TYPE_ALL_MATCHES;
+
+      if (options != null) {
+        if (options.hasKey("scanMode") && options.getType("scanMode") == ReadableType.Number) {
+          scanMode = options.getInt("scanMode");
+        }
+        if (options.hasKey("callbackType") && options.getType("callbackType") == ReadableType.Number) {
+          callbackType = options.getInt("callbackType");
+        }
+      }
+
+      safeStartTrackerScan(uuids, scanMode, callbackType);
+    }
+
+      private void safeStartTrackerScan(final UUID[] uuids, int scanMode, int callbackType) {
+        if (rxBleClient == null) {
+            throw new IllegalStateException("BleManager not created when tried to start device scan");
+        }
+
+        ScanSettings scanSettings = new ScanSettings.Builder()
+                .setScanMode(scanMode)
+                .setCallbackType(callbackType)
+                .build();
+
+        int length = uuids == null ? 0 : uuids.length;
+        ScanFilter filters[] = new ScanFilter[length];
+        for (int i =0; i< length; i++) {
+            filters[i] = new ScanFilter.Builder().setServiceUuid(ParcelUuid.fromString(uuids[i].toString())).build();
+        }
+
+        scanSubscription = rxBleClient
+                .scanBleDevices(scanSettings, filters)
+                .subscribe(new Action1<ScanResult>() {
+                    @Override
+                    public void call(ScanResult scanResult) {
+                        String deviceId = scanResult.getBleDevice().getMacAddress();
+                        if (!discoveredDevices.containsKey(deviceId)) {
+                            discoveredDevices.put(deviceId, new Device(scanResult.getBleDevice(), null));
+                        }
+                        sendEvent(Event.ScanEvent, scanConverter.toJSCallback(scanResult));
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        sendEvent(Event.ScanEvent, errorConverter.toError(throwable).toJSCallback());
+                    }
+                });
+    }
+
+    @ReactMethod
+    public void startScaleScan(@Nullable ReadableArray filteredUUIDs, @Nullable ReadableMap options) {
+        UUID[] uuids = null;
+
+        int scanMode = SCAN_MODE_LOW_POWER;
+        int callbackType = CALLBACK_TYPE_ALL_MATCHES;
+
+        if (options != null) {
+            if (options.hasKey("scanMode") && options.getType("scanMode") == ReadableType.Number) {
+                scanMode = options.getInt("scanMode");
+            }
+            if (options.hasKey("callbackType") && options.getType("callbackType") == ReadableType.Number) {
+                callbackType = options.getInt("callbackType");
+            }
+        }
+
+        if (filteredUUIDs != null) {
+            uuids = UUIDConverter.convert(filteredUUIDs);
+            if (uuids == null) {
+                sendEvent(Event.ScanEvent,
+                        BleErrorUtils.invalidIdentifiers(ReadableArrayConverter.toStringArray(filteredUUIDs)).toJSCallback());
+                return;
+            }
+        }
+
+        safeStartDeviceScan(uuids, scanMode, callbackType);
+    }
+
+    @ReactMethod
     public void startDeviceScan(@Nullable ReadableArray filteredUUIDs, @Nullable ReadableMap options) {
         UUID[] uuids = null;
 
@@ -426,6 +535,14 @@ public class BleModule extends ReactContextBaseJavaModule {
                         sendEvent(Event.ScanEvent, errorConverter.toError(throwable).toJSCallback());
                     }
                 });
+    }
+
+    public static byte calculateChecksum(byte[] message) {
+      int crcSum = 0x00;
+      for (int i = 0; i < 15; i++) {
+        crcSum += message[i];
+      }
+      return (byte) (crcSum > 0xFF ? (byte) (crcSum % 256) & 0xFF : (byte) (crcSum) & 0xFF);
     }
 
     @ReactMethod
@@ -954,6 +1071,195 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     // Mark: Characteristics operations ------------------------------------------------------------
+    // Scale
+    @ReactMethod
+    public void setUserProfileToScales(final String deviceId, int age, int height, String gender,
+        final String transactionId, final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          scaleWriteCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      byte[] message = new byte[7];
+      message[0] = (byte) 0xfd;
+      message[1] = (byte) 0x53;
+      message[2] = 0x00;
+      message[3] = 0x00;
+      message[4] = (byte) 0xff;
+      age = age < 10 ? 10 : age;
+      age = age > 98 ? 98 : age;
+      message[5] = (byte) (gender.equalsIgnoreCase("male") ? age + 128 : age);
+      height = height < 100 ? 100 : height;
+      height = height > 218 ? 218 : height;
+      message[6] = (byte) height;
+
+      writeProperCharacteristicWithValue(characteristic, message, true, transactionId, promise);
+    }
+
+      // Scale
+    @ReactMethod
+    public void setUserProfileToAlternativeScale(final String deviceId, final String user, int age, int height, int gender,
+        final String transactionId, final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          alternativeScaleWriteCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      byte[] data = new byte[13];
+      height = height < 100 ? 100 : height;
+      height = height > 218 ? 218 : height;
+      age = age < 10 ? 10 : age;
+      age = age > 98 ? 98 : age;
+
+      data[0] = (byte) 0x81;
+      data[1] = 0x00;
+      data[2] = (byte) 0x81;
+      data[3] = (byte) user.substring(0,2).getBytes()[0];
+      data[4] = (byte) user.substring(2,4).getBytes()[0];
+      data[5] = (byte) user.substring(4,6).getBytes()[0];
+      data[6] = (byte) user.substring(6,8).getBytes()[0];
+      data[7] = 0x00;
+      data[8] =  (byte) height;
+      data[9] =  (byte) age;
+      data[10] = (byte) gender;
+      data[11] = 0x00;
+      data[12] = 0x00;
+
+      writeProperCharacteristicWithValue(characteristic, data, false, transactionId, promise);
+    }
+
+        // Scale
+    @ReactMethod
+    public void synchronizeAlternativeScale(final String deviceId, final String user, String measurement,
+        final String transactionId, final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          alternativeScaleWriteCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      byte[] data = new byte[8];
+
+      data[0] = 0x41;
+      data[1] = 0x00;
+      data[2] = (byte) 0x84;
+      data[3] = (byte) user.substring(0,2).getBytes()[0];
+      data[4] = (byte) user.substring(2,4).getBytes()[0];
+      data[5] = (byte) user.substring(4,6).getBytes()[0];
+      data[6] = (byte) user.substring(6,8).getBytes()[0];
+      data[7] = (byte) (measurement.equalsIgnoreCase("metric") ? 0 : 1);
+
+      writeProperCharacteristicWithValue(characteristic, data, false, transactionId, promise);
+    }
+
+          // Scale
+    @ReactMethod
+    public void selectProfileAlternativeScale(final String deviceId, final String user,
+        final String transactionId, final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          alternativeScaleWriteCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      byte[] data = new byte[7];
+
+      data[0] = 0x41;
+      data[1] = 0x00;
+      data[2] = (byte)0x82;
+      data[3] = (byte) user.substring(0,2).getBytes()[0];
+      data[4] = (byte) user.substring(2,4).getBytes()[0];
+      data[5] = (byte) user.substring(4,6).getBytes()[0];
+      data[6] = (byte) user.substring(6,8).getBytes()[0];
+
+      writeProperCharacteristicWithValue(characteristic, data, false, transactionId, promise);
+    }
+
+    // Tracker
+
+    @ReactMethod
+    public void activateVibration(final String deviceId, final int duration, final String transactionId,
+        final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          trackerWriteCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      byte[] message = new byte[16];
+      message[0] = 0x36;
+      message[1] = (byte) (duration > 10 ? 10 : duration);
+      message[15] = calculateChecksum(message);
+
+      writeProperCharacteristicWithValue(characteristic, message, true, transactionId, promise);
+    }
+
+    @ReactMethod
+    public void setDeviceTime(final String deviceId, final String date, final String transactionId,
+        final Promise promise) {
+
+      String sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          trackerWriteCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      byte[] message = new byte[16];
+      message[0] = 0x01;
+      message[1] = Byte.parseByte(sdf.substring(2, 4), 16);
+      message[2] = Byte.parseByte(sdf.substring(5, 7), 16);
+      message[3] = Byte.parseByte(sdf.substring(8, 10), 16);
+      message[4] = Byte.parseByte(sdf.substring(11, 13), 16);
+      message[5] = Byte.parseByte(sdf.substring(14, 16), 16);
+      message[6] = Byte.parseByte(sdf.substring(17, 19), 16);
+      message[15] = calculateChecksum(message);
+
+      writeProperCharacteristicWithValue(characteristic, message, true, transactionId, promise);
+    }
+
+    @ReactMethod
+    public void getDetailedDayActivity(final String deviceId, final int date, final String transactionId,
+        final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          trackerWriteCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      byte[] message = new byte[16];
+      message[0] = 0x43;
+      message[1] = (byte) date;
+      message[15] = calculateChecksum(message);
+
+      writeProperCharacteristicWithValue(characteristic, message, true, transactionId, promise);
+    }
+
+    @ReactMethod
+    public void getSummaryDayActivity(final String deviceId, final int date, final String transactionId,
+        final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          trackerWriteCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      byte[] message = new byte[16];
+      message[0] = 0x07;
+      message[1] = (byte) date;
+      message[15] = calculateChecksum(message);
+
+      writeProperCharacteristicWithValue(characteristic, message, true, transactionId, promise);
+    }
 
     @ReactMethod
     public void writeCharacteristicForDevice(final String deviceId,
@@ -1180,6 +1486,71 @@ public class BleModule extends ReactContextBaseJavaModule {
                 });
 
         transactions.replaceSubscription(transactionId, subscription);
+    }
+
+  @ReactMethod
+    public void monitorTrackerResponse(final String deviceId, final String transactionId, final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          trackerReadCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+    }
+
+    @ReactMethod
+    public void monitorScaleResponse(final String deviceId, final String transactionId, final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          scaleReadCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+    }
+
+    @ReactMethod
+    public void monitorAlternativeScaleResponse(final String deviceId, final String transactionId, final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          alternativeScaleReadCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+    }
+
+      @ReactMethod
+    public void monitorAlternativeScaleFinalResponse(final String deviceId, final String transactionId, final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          alternativeScaleReadFinalCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      safeMonitorCharacteristicForDevice(characteristic, transactionId, new SafePromise(promise));
+    }
+    
+    private void writeProperCharacteristicWithValue(final Characteristic characteristic, final byte[] valueBase64,
+        final Boolean response, final String transactionId, final Promise promise) {
+      final byte[] value;
+      try {
+        value = valueBase64;
+      } catch (Throwable e) {
+        BleErrorUtils.invalidWriteDataForCharacteristic("Error",
+            UUIDConverter.fromUUID(characteristic.getNativeCharacteristic().getUuid())).reject(promise);
+        return;
+      }
+
+      characteristic.getNativeCharacteristic().setWriteType(
+          response ? BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT : BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+
+      safeWriteCharacteristicForDevice(characteristic, value, transactionId, new SafePromise(promise));
     }
 
     @ReactMethod
