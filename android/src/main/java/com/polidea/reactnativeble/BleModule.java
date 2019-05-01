@@ -411,7 +411,7 @@ public class BleModule extends ReactContextBaseJavaModule {
       safeStartTrackerScan(uuids, scanMode, callbackType);
     }
 
-      private void safeStartTrackerScan(final UUID[] uuids, int scanMode, int callbackType) {
+    private void safeStartTrackerScan(final UUID uuids, int scanMode, int callbackType) {
         if (rxBleClient == null) {
             throw new IllegalStateException("BleManager not created when tried to start device scan");
         }
