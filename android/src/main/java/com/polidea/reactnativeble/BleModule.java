@@ -421,11 +421,11 @@ public class BleModule extends ReactContextBaseJavaModule {
                 .setCallbackType(callbackType)
                 .build();
 
-        int length = uuids == null ? 0 : uuids.length;
-        ScanFilter filters[] = new ScanFilter[length];
-        for (int i =0; i< length; i++) {
-            filters[i] = new ScanFilter.Builder().setServiceUuid(ParcelUuid.fromString(uuids[i].toString())).build();
-        }
+      int length = 1;
+      ScanFilter filters[] = new ScanFilter[length];
+      for (int i = 0; i < length; i++) {
+        filters[i] = new ScanFilter.Builder().setServiceUuid(ParcelUuid.fromString(uuids.toString())).build();
+      }
 
         scanSubscription = rxBleClient
                 .scanBleDevices(scanSettings, filters)
