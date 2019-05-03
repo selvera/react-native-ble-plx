@@ -447,7 +447,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void startScaleScan(@Nullable ReadableArray filteredUUIDs, @Nullable ReadableMap options) {
+    public void startScaleScan(@Nullable ReadableMap options) {
         UUID[] uuids = null;
 
         int scanMode = SCAN_MODE_LOW_POWER;
@@ -459,15 +459,6 @@ public class BleModule extends ReactContextBaseJavaModule {
             }
             if (options.hasKey("callbackType") && options.getType("callbackType") == ReadableType.Number) {
                 callbackType = options.getInt("callbackType");
-            }
-        }
-
-        if (filteredUUIDs != null) {
-            uuids = UUIDConverter.convert(filteredUUIDs);
-            if (uuids == null) {
-                sendEvent(Event.ScanEvent,
-                        BleErrorUtils.invalidIdentifiers(ReadableArrayConverter.toStringArray(filteredUUIDs)).toJSCallback());
-                return;
             }
         }
 
