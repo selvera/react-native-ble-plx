@@ -1193,7 +1193,7 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setTrackerDistanceUnit(final String deviceId, final String unit, final String transactionId,
+    public void setTrackerDistanceUnit(final String deviceId, String unit, final String transactionId,
         final Promise promise) {
 
       final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
@@ -1203,8 +1203,8 @@ public class BleModule extends ReactContextBaseJavaModule {
       }
 
       byte[] message = new byte[16];
-      message[0] = 0x0F;
-      message[1] = (byte) (unit.equalsIgnoreCase("metric") ? 0 : 1);
+      message[0] = (byte) 0x0F;
+      message[1] = (byte) (unit.equalsIgnoreCase("metric") ? 0x00 : 0x01);
       message[15] = calculateChecksum(message);
 
       writeProperCharacteristicWithValue(characteristic, message, true, transactionId, promise);
