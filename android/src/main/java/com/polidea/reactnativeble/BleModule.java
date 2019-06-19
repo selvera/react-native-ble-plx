@@ -1193,6 +1193,24 @@ public class BleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void setTrackerDistanceUnit(final String deviceId, final String unit, final String transactionId,
+        final Promise promise) {
+
+      final Characteristic characteristic = getCharacteristicOrReject(deviceId, trackerServiceUUID,
+          trackerWriteCharacteristic, promise);
+      if (characteristic == null) {
+        return;
+      }
+
+      byte[] message = new byte[16];
+      message[0] = 0x0F;
+      message[1] = (byte) (unit.equalsIgnoreCase("metric") ? 0 : 1);
+      message[15] = calculateChecksum(message);
+
+      writeProperCharacteristicWithValue(characteristic, message, true, transactionId, promise);
+    }
+
+    @ReactMethod
     public void setDeviceTime(final String deviceId, final String date, final String transactionId,
         final Promise promise) {
 

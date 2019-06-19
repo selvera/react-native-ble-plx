@@ -1082,6 +1082,29 @@ public class BleClientManager : NSObject {
     }
 
             @objc
+    public func setTrackerDistanceUnit(  _ deviceIdentifier: String,
+                                                    unit: String,
+                                                    transactionId: String,
+                                                          resolve: @escaping Resolve,
+                                                           reject: @escaping Reject) {
+        var data = createNewArray()
+        let measurementType = (measurement == "metric") ? 0 : 1
+
+        data[0] = 0x0F
+        data[1] = UInt8(measurementType)
+        let value = convertFullArray(data: data)
+
+        let observable = getCharacteristicForDevice(deviceIdentifier,
+                                                    serviceUUID: self.trackerServiceUUID,
+                                                    characteristicUUID: self.trackerWriteCharacteristic)
+        safeWriteCharacteristicForDevice(observable,
+                                         value: value,
+                                         response: true,
+                                         transactionId: transactionId,
+                                         promise: SafePromise(resolve: resolve, reject: reject))
+    }
+
+            @objc
     public func setUserProfileToScales(  _ deviceIdentifier: String,
                                                     age: Int,
                                                     height: Int,

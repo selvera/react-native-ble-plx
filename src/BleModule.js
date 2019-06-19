@@ -601,6 +601,12 @@ export interface BleModuleInterface {
     transactionId: TransactionId
   ): Promise<NativeCharacteristic>;
 
+  setTrackerDistanceUnit(
+    deviceIdentifier: DeviceId,
+    unit: string,
+    transactionId: TransactionId
+  ): Promise<NativeCharacteristic>;
+
   setDeviceTime(
     deviceIdentifier: DeviceId,
     date: string,

@@ -389,6 +389,18 @@ RCT_EXPORT_METHOD(activateVibration:(NSString*)deviceIdentifier
                                     reject:reject];
 }
 
+RCT_EXPORT_METHOD(setTrackerDistanceUnit:(NSString*)deviceIdentifier
+                                unit:  (NSString*)unit
+                                 transactionId:(NSString*)transactionId
+                                      resolver:(RCTPromiseResolveBlock)resolve
+                                      rejecter:(RCTPromiseRejectBlock)reject) {
+    [_manager setTrackerDistanceUnit:deviceIdentifier
+                              unit: unit
+                             transactionId:transactionId
+                                   resolve:resolve
+                                    reject:reject];
+}
+
 RCT_EXPORT_METHOD(setUserProfileToScales:(NSString*)deviceIdentifier
                                 age:  (NSInteger)age
                                 height:  (NSInteger)height

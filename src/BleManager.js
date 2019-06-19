@@ -377,6 +377,24 @@ export class BleManager {
     return new Characteristic(nativeCharacteristic, this)
   }
 
+  async setTrackerDistanceUnit(
+    deviceIdentifier: DeviceId,
+    unit: string,
+    transactionId: ?TransactionId
+  ): Promise<Characteristic> {
+    if (!transactionId) {
+      transactionId = this._nextUniqueID()
+    }
+    const nativeCharacteristic = await this._callPromise(
+      BleModule.activateVibration(
+        deviceIdentifier,
+        unit,
+        transactionId
+      )
+    )
+    return new Characteristic(nativeCharacteristic, this)
+  }
+
   async setUserProfileToScales(
     deviceIdentifier: DeviceId,
     height: number,
