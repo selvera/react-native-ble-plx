@@ -386,7 +386,7 @@ export class BleManager {
       transactionId = this._nextUniqueID()
     }
     const nativeCharacteristic = await this._callPromise(
-      BleModule.activateVibration(
+      BleModule.setTrackerDistanceUnit(
         deviceIdentifier,
         unit,
         transactionId
