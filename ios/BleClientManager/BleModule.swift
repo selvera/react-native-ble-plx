@@ -1088,7 +1088,7 @@ public class BleClientManager : NSObject {
                                                           resolve: @escaping Resolve,
                                                            reject: @escaping Reject) {
         var data = createNewArray()
-        let measurementType = (unit == "metric") ? 0 : 1
+        let measurementType = (unit == "us") ? 1 : 0
 
         data[0] = 0x0F
         data[1] = UInt8(measurementType)
