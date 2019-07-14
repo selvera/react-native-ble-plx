@@ -1204,7 +1204,7 @@ public class BleModule extends ReactContextBaseJavaModule {
 
       byte[] message = new byte[16];
       message[0] = (byte) 0x0F;
-      message[1] = (byte) (unit.equalsIgnoreCase("metric") ? 0x00 : 0x01);
+      message[1] = (byte) (unit.equalsIgnoreCase("us") ? 0x01 : 0x00);
       message[15] = calculateChecksum(message);
 
       writeProperCharacteristicWithValue(characteristic, message, true, transactionId, promise);
