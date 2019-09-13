@@ -1,21 +1,21 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset='utf-8' />
-  <title>react-native-ble-plx 1.0.3 | Documentation</title>
+  <meta charset='utf-8'>
+  <title>react-native-ble-plx 1.1.0 | Documentation</title>
   <meta name='description' content='React Native Bluetooth Low Energy library'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
-  <link href='assets/bass.css' rel='stylesheet' />
-  <link href='assets/style.css' rel='stylesheet' />
-  <link href='assets/github.css' rel='stylesheet' />
-  <link href='assets/split.css' rel='stylesheet' />
+  <link href='assets/bass.css' rel='stylesheet'>
+  <link href='assets/style.css' rel='stylesheet'>
+  <link href='assets/github.css' rel='stylesheet'>
+  <link href='assets/split.css' rel='stylesheet'>
 </head>
 <body class='documentation m0'>
     <div class='flex'>
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>react-native-ble-plx</h3>
-          <div class='mb1'><code>1.0.3</code></div>
+          <div class='mb1'><code>1.1.0</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -107,36 +107,6 @@
                       </a></li>
                       
                       <li><a
-                        href='#blemanagerstarttrackerscan'
-                        class='regular pre-open'>
-                        #startTrackerScan
-                      </a></li>
-                      
-                      <li><a
-                        href='#blemanagermonitortrackerresponse'
-                        class='regular pre-open'>
-                        #monitorTrackerResponse
-                      </a></li>
-                      
-                      <li><a
-                        href='#blemanagermonitorscaleresponse'
-                        class='regular pre-open'>
-                        #monitorScaleResponse
-                      </a></li>
-                      
-                      <li><a
-                        href='#blemanagermonitoralternativescaleresponse'
-                        class='regular pre-open'>
-                        #monitorAlternativeScaleResponse
-                      </a></li>
-                      
-                      <li><a
-                        href='#blemanagermonitoralternativescalefinalresponse'
-                        class='regular pre-open'>
-                        #monitorAlternativeScaleFinalResponse
-                      </a></li>
-                      
-                      <li><a
                         href='#blemanagerstartdevicescan'
                         class='regular pre-open'>
                         #startDeviceScan
@@ -221,6 +191,12 @@
                       </a></li>
                       
                       <li><a
+                        href='#blemanagerdescriptorsfordevice'
+                        class='regular pre-open'>
+                        #descriptorsForDevice
+                      </a></li>
+                      
+                      <li><a
                         href='#blemanagerreadcharacteristicfordevice'
                         class='regular pre-open'>
                         #readCharacteristicForDevice
@@ -242,6 +218,18 @@
                         href='#blemanagermonitorcharacteristicfordevice'
                         class='regular pre-open'>
                         #monitorCharacteristicForDevice
+                      </a></li>
+                      
+                      <li><a
+                        href='#blemanagerreaddescriptorfordevice'
+                        class='regular pre-open'>
+                        #readDescriptorForDevice
+                      </a></li>
+                      
+                      <li><a
+                        href='#blemanagerwritedescriptorfordevice'
+                        class='regular pre-open'>
+                        #writeDescriptorForDevice
                       </a></li>
                       
                     </ul>
@@ -399,6 +387,12 @@
                       </a></li>
                       
                       <li><a
+                        href='#devicedescriptorsforservice'
+                        class='regular pre-open'>
+                        #descriptorsForService
+                      </a></li>
+                      
+                      <li><a
                         href='#devicereadcharacteristicforservice'
                         class='regular pre-open'>
                         #readCharacteristicForService
@@ -420,6 +414,18 @@
                         href='#devicemonitorcharacteristicforservice'
                         class='regular pre-open'>
                         #monitorCharacteristicForService
+                      </a></li>
+                      
+                      <li><a
+                        href='#devicereaddescriptorforservice'
+                        class='regular pre-open'>
+                        #readDescriptorForService
+                      </a></li>
+                      
+                      <li><a
+                        href='#devicewritedescriptorforservice'
+                        class='regular pre-open'>
+                        #writeDescriptorForService
                       </a></li>
                       
                     </ul>
@@ -475,6 +481,12 @@
                       </a></li>
                       
                       <li><a
+                        href='#servicedescriptorsforcharacteristic'
+                        class='regular pre-open'>
+                        #descriptorsForCharacteristic
+                      </a></li>
+                      
+                      <li><a
                         href='#servicereadcharacteristic'
                         class='regular pre-open'>
                         #readCharacteristic
@@ -496,6 +508,18 @@
                         href='#servicemonitorcharacteristic'
                         class='regular pre-open'>
                         #monitorCharacteristic
+                      </a></li>
+                      
+                      <li><a
+                        href='#servicereaddescriptorforcharacteristic'
+                        class='regular pre-open'>
+                        #readDescriptorForCharacteristic
+                      </a></li>
+                      
+                      <li><a
+                        href='#servicewritedescriptorforcharacteristic'
+                        class='regular pre-open'>
+                        #writeDescriptorForCharacteristic
                       </a></li>
                       
                     </ul>
@@ -593,6 +617,12 @@
                       </a></li>
                       
                       <li><a
+                        href='#characteristicdescriptors'
+                        class='regular pre-open'>
+                        #descriptors
+                      </a></li>
+                      
+                      <li><a
                         href='#characteristicread'
                         class='regular pre-open'>
                         #read
@@ -614,6 +644,100 @@
                         href='#characteristicmonitor'
                         class='regular pre-open'>
                         #monitor
+                      </a></li>
+                      
+                      <li><a
+                        href='#characteristicreaddescriptor'
+                        class='regular pre-open'>
+                        #readDescriptor
+                      </a></li>
+                      
+                      <li><a
+                        href='#characteristicwritedescriptor'
+                        class='regular pre-open'>
+                        #writeDescriptor
+                      </a></li>
+                      
+                    </ul>
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#descriptor'
+                  class=" toggle-sibling">
+                  Descriptor
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  
+                    <ul class='list-reset py1-ul pl1'>
+                      <li class='h5'><span>Instance members</span></li>
+                      
+                      <li><a
+                        href='#descriptorid'
+                        class='regular pre-open'>
+                        #id
+                      </a></li>
+                      
+                      <li><a
+                        href='#descriptoruuid'
+                        class='regular pre-open'>
+                        #uuid
+                      </a></li>
+                      
+                      <li><a
+                        href='#descriptorcharacteristicid'
+                        class='regular pre-open'>
+                        #characteristicID
+                      </a></li>
+                      
+                      <li><a
+                        href='#descriptorcharacteristicuuid'
+                        class='regular pre-open'>
+                        #characteristicUUID
+                      </a></li>
+                      
+                      <li><a
+                        href='#descriptorserviceid'
+                        class='regular pre-open'>
+                        #serviceID
+                      </a></li>
+                      
+                      <li><a
+                        href='#descriptorserviceuuid'
+                        class='regular pre-open'>
+                        #serviceUUID
+                      </a></li>
+                      
+                      <li><a
+                        href='#descriptordeviceid'
+                        class='regular pre-open'>
+                        #deviceID
+                      </a></li>
+                      
+                      <li><a
+                        href='#descriptorvalue'
+                        class='regular pre-open'>
+                        #value
+                      </a></li>
+                      
+                      <li><a
+                        href='#descriptorread'
+                        class='regular pre-open'>
+                        #read
+                      </a></li>
+                      
+                      <li><a
+                        href='#descriptorwrite'
+                        class='regular pre-open'>
+                        #write
                       </a></li>
                       
                     </ul>
@@ -933,6 +1057,12 @@
                         href='#bleerrorcodedescriptorinvaliddataformat'
                         class='regular pre-open'>
                         .DescriptorInvalidDataFormat
+                      </a></li>
+                    
+                      <li><a
+                        href='#bleerrorcodedescriptorwritenotallowed'
+                        class='regular pre-open'>
+                        .DescriptorWriteNotAllowed
                       </a></li>
                     
                       <li><a
@@ -1600,46 +1730,6 @@
               
                 
                 <li><a
-                  href='#scanoptions'
-                  class=" toggle-sibling">
-                  ScanOptions
-                  <span class='icon'>▸</span>
-                </a>
-                
-                <div class='toggle-target display-none'>
-                  
-                  
-                    <ul class='list-reset py1-ul pl1'>
-                      <li class='h5'><span>Instance members</span></li>
-                      
-                      <li><a
-                        href='#scanoptionsallowduplicates'
-                        class='regular pre-open'>
-                        #allowDuplicates
-                      </a></li>
-                      
-                      <li><a
-                        href='#scanoptionsscanmode'
-                        class='regular pre-open'>
-                        #scanMode
-                      </a></li>
-                      
-                      <li><a
-                        href='#scanoptionscallbacktype'
-                        class='regular pre-open'>
-                        #callbackType
-                      </a></li>
-                      
-                    </ul>
-                  
-                  
-                  
-                </div>
-                
-                </li>
-              
-                
-                <li><a
                   href='#scancallbacktype'
                   class=" toggle-sibling">
                   ScanCallbackType
@@ -1850,15 +1940,14 @@
       <div id='split-right' class='relative overflow-auto height-viewport-100'>
         
           
-            <div class='keyline-top-not py2'>
-  <section class='py2 clearfix'>
+            <div class='keyline-top-not py2'><section class='py2 clearfix'>
 
-    <h2 id='introduction' class='mt0'>
-      Introduction
-    </h2>
+  <h2 id='introduction' class='mt0'>
+    Introduction
+  </h2>
 
-    
-      <p align="center">
+  
+    <p align="center">
   <a href="https://github.com/Polidea/react-native-ble-plx"><img alt="react-native-ble-plx" src="logo.png" /></a>
 </p>
 <p>This guide is an introduction to BLE stack and APIs exported by this library. All examples
@@ -1940,26 +2029,23 @@ it can be a long process depending on number of characteristics and services ava
 </ul>
 <p>and other functions which are described in detail in documentation.</p>
 
-    
-  </section>
-</div>
+  
+</section></div>
           
         
           
-            <div class='keyline-top-not py2'>
-  <section class='py2 clearfix'>
+            <div class='keyline-top-not py2'><section class='py2 clearfix'>
 
-    <h2 id='main-classes' class='mt0'>
-      Main Classes
-    </h2>
+  <h2 id='main-classes' class='mt0'>
+    Main Classes
+  </h2>
 
-    
-      <p>Classes described below are main building blocks for your BLE support. They
+  
+    <p>Classes described below are main building blocks for your BLE support. They
 are presented in order which aligns them with usage.</p>
 
-    
-  </section>
-</div>
+  
+</section></div>
           
         
           
@@ -2553,572 +2639,6 @@ Look at
      }
  }, <span class="hljs-literal">true</span>);</pre>
     
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='blemanagerstarttrackerscan'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>startTrackerScan(UUIDs, options, listener)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Starts device scanning. When previous scan is in progress it will be stopped before executing this command.</p>
-<p>scanned <a href="#device">Device</a>. If <code>null</code> is passed, all available <a href="#device">Device</a>s will be scanned.</p>
-
-    <div class='pre p1 fill-light mt0'>startTrackerScan(UUIDs: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#uuid">UUID</a>>?, options: <a href="#scanoptions">ScanOptions</a>?, listener: function (error: <a href="#bleerror">BleError</a>?, scannedDevice: <a href="#device">Device</a>?))</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>UUIDs</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#uuid">UUID</a>>?)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="#scanoptions">ScanOptions</a>?)</code>
-	    Optional configuration for scanning operation.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>listener</span> <code class='quiet'>(function (error: <a href="#bleerror">BleError</a>?, scannedDevice: <a href="#device">Device</a>?))</code>
-	    Function which will be called for every scanned
-
-<a href="#device">Device</a>
- (devices may be scanned multiple times). It's first argument is potential 
-<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>
- which is set
-to non 
-<code>null</code>
- value when scanning failed. You have to start scanning process again if that happens. Second argument
-is a scanned 
-<a href="#device">Device</a>
-.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='blemanagermonitortrackerresponse'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>monitorTrackerResponse(deviceIdentifier, listener, transactionId, serviceUUID, characteristicUUID)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Monitor value changes of a <a href="#characteristic">Characteristic</a>. If notifications are enabled they will be used
-in favour of indications.</p>
-
-    <div class='pre p1 fill-light mt0'>monitorTrackerResponse(deviceIdentifier: <a href="#deviceid">DeviceId</a>, listener: function (error: <a href="#bleerror">BleError</a>?, characteristic: <a href="#characteristic">Characteristic</a>?), transactionId: <a href="#transactionid">TransactionId</a>?, serviceUUID: <a href="#uuid">UUID</a>, characteristicUUID: <a href="#uuid">UUID</a>): <a href="#subscription">Subscription</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>deviceIdentifier</span> <code class='quiet'>(<a href="#deviceid">DeviceId</a>)</code>
-	    <a href="#device">Device</a>
- identifier.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>listener</span> <code class='quiet'>(function (error: <a href="#bleerror">BleError</a>?, characteristic: <a href="#characteristic">Characteristic</a>?))</code>
-	    callback which emits
-
-<a href="#characteristic">Characteristic</a>
- objects with modified value for each notification.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>transactionId</span> <code class='quiet'>(<a href="#transactionid">TransactionId</a>?)</code>
-	    optional 
-<code>transactionId</code>
- which can be used in
-
-<a href="#blemanagercanceltransaction">cancelTransaction()</a>
- function.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>serviceUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
-	    <a href="#service">Service</a>
- UUID.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>characteristicUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
-	    <a href="#characteristic">Characteristic</a>
- UUID.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="#subscription">Subscription</a></code>:
-        Subscription on which 
-<code>remove()</code>
- function can be called to unsubscribe.
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='blemanagermonitorscaleresponse'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>monitorScaleResponse(deviceIdentifier, listener, transactionId, serviceUUID, characteristicUUID)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Monitor value changes of a <a href="#characteristic">Characteristic</a>. If notifications are enabled they will be used
-in favour of indications.</p>
-
-    <div class='pre p1 fill-light mt0'>monitorScaleResponse(deviceIdentifier: <a href="#deviceid">DeviceId</a>, listener: function (error: <a href="#bleerror">BleError</a>?, characteristic: <a href="#characteristic">Characteristic</a>?), transactionId: <a href="#transactionid">TransactionId</a>?, serviceUUID: <a href="#uuid">UUID</a>, characteristicUUID: <a href="#uuid">UUID</a>): <a href="#subscription">Subscription</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>deviceIdentifier</span> <code class='quiet'>(<a href="#deviceid">DeviceId</a>)</code>
-	    <a href="#device">Device</a>
- identifier.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>listener</span> <code class='quiet'>(function (error: <a href="#bleerror">BleError</a>?, characteristic: <a href="#characteristic">Characteristic</a>?))</code>
-	    callback which emits
-
-<a href="#characteristic">Characteristic</a>
- objects with modified value for each notification.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>transactionId</span> <code class='quiet'>(<a href="#transactionid">TransactionId</a>?)</code>
-	    optional 
-<code>transactionId</code>
- which can be used in
-
-<a href="#blemanagercanceltransaction">cancelTransaction()</a>
- function.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>serviceUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
-	    <a href="#service">Service</a>
- UUID.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>characteristicUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
-	    <a href="#characteristic">Characteristic</a>
- UUID.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="#subscription">Subscription</a></code>:
-        Subscription on which 
-<code>remove()</code>
- function can be called to unsubscribe.
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='blemanagermonitoralternativescaleresponse'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>monitorAlternativeScaleResponse(deviceIdentifier, listener, transactionId, serviceUUID, characteristicUUID)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Monitor value changes of a <a href="#characteristic">Characteristic</a>. If notifications are enabled they will be used
-in favour of indications.</p>
-
-    <div class='pre p1 fill-light mt0'>monitorAlternativeScaleResponse(deviceIdentifier: <a href="#deviceid">DeviceId</a>, listener: function (error: <a href="#bleerror">BleError</a>?, characteristic: <a href="#characteristic">Characteristic</a>?), transactionId: <a href="#transactionid">TransactionId</a>?, serviceUUID: <a href="#uuid">UUID</a>, characteristicUUID: <a href="#uuid">UUID</a>): <a href="#subscription">Subscription</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>deviceIdentifier</span> <code class='quiet'>(<a href="#deviceid">DeviceId</a>)</code>
-	    <a href="#device">Device</a>
- identifier.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>listener</span> <code class='quiet'>(function (error: <a href="#bleerror">BleError</a>?, characteristic: <a href="#characteristic">Characteristic</a>?))</code>
-	    callback which emits
-
-<a href="#characteristic">Characteristic</a>
- objects with modified value for each notification.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>transactionId</span> <code class='quiet'>(<a href="#transactionid">TransactionId</a>?)</code>
-	    optional 
-<code>transactionId</code>
- which can be used in
-
-<a href="#blemanagercanceltransaction">cancelTransaction()</a>
- function.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>serviceUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
-	    <a href="#service">Service</a>
- UUID.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>characteristicUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
-	    <a href="#characteristic">Characteristic</a>
- UUID.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="#subscription">Subscription</a></code>:
-        Subscription on which 
-<code>remove()</code>
- function can be called to unsubscribe.
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='blemanagermonitoralternativescalefinalresponse'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>monitorAlternativeScaleFinalResponse(deviceIdentifier, listener, transactionId, serviceUUID, characteristicUUID)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Monitor value changes of a <a href="#characteristic">Characteristic</a>. If notifications are enabled they will be used
-in favour of indications.</p>
-
-    <div class='pre p1 fill-light mt0'>monitorAlternativeScaleFinalResponse(deviceIdentifier: <a href="#deviceid">DeviceId</a>, listener: function (error: <a href="#bleerror">BleError</a>?, characteristic: <a href="#characteristic">Characteristic</a>?), transactionId: <a href="#transactionid">TransactionId</a>?, serviceUUID: <a href="#uuid">UUID</a>, characteristicUUID: <a href="#uuid">UUID</a>): <a href="#subscription">Subscription</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>deviceIdentifier</span> <code class='quiet'>(<a href="#deviceid">DeviceId</a>)</code>
-	    <a href="#device">Device</a>
- identifier.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>listener</span> <code class='quiet'>(function (error: <a href="#bleerror">BleError</a>?, characteristic: <a href="#characteristic">Characteristic</a>?))</code>
-	    callback which emits
-
-<a href="#characteristic">Characteristic</a>
- objects with modified value for each notification.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>transactionId</span> <code class='quiet'>(<a href="#transactionid">TransactionId</a>?)</code>
-	    optional 
-<code>transactionId</code>
- which can be used in
-
-<a href="#blemanagercanceltransaction">cancelTransaction()</a>
- function.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>serviceUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
-	    <a href="#service">Service</a>
- UUID.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>characteristicUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
-	    <a href="#characteristic">Characteristic</a>
- UUID.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="#subscription">Subscription</a></code>:
-        Subscription on which 
-<code>remove()</code>
- function can be called to unsubscribe.
-
-      
-    
-  
-
-  
-
   
 
   
@@ -4001,7 +3521,7 @@ if available and
 
   
 
-  <p>Discovers all <a href="#service">Service</a>s and <a href="#characteristic">Characteristic</a>s for <a href="#device">Device</a>.</p>
+  <p>Discovers all <a href="#service">Service</a>s,  <a href="#characteristic">Characteristic</a>s and <a href="#descriptor">Descriptor</a>s for <a href="#device">Device</a>.</p>
 
     <div class='pre p1 fill-light mt0'>discoverAllServicesAndCharacteristicsForDevice(deviceIdentifier: <a href="#deviceid">DeviceId</a>, transactionId: <a href="#transactionid">TransactionId</a>?): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#device">Device</a>></div>
   
@@ -4211,6 +3731,105 @@ discovered for a
 <a href="#device">Device</a>
  in specified 
 <a href="#service">Service</a>
+.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='blemanagerdescriptorsfordevice'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>descriptorsForDevice(deviceIdentifier, serviceUUID, characteristicUUID)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>List of discovered <a href="#descriptor">Descriptor</a>s for given <a href="#device">Device</a>, <a href="#service">Service</a> and <a href="#characteristic">Characteristic</a>.</p>
+
+    <div class='pre p1 fill-light mt0'>descriptorsForDevice(deviceIdentifier: <a href="#deviceid">DeviceId</a>, serviceUUID: <a href="#uuid">UUID</a>, characteristicUUID: <a href="#uuid">UUID</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#descriptor">Descriptor</a>>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>deviceIdentifier</span> <code class='quiet'>(<a href="#deviceid">DeviceId</a>)</code>
+	    <a href="#device">Device</a>
+ identifier.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>serviceUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    <a href="#service">Service</a>
+ UUID.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>characteristicUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    <a href="#characteristic">Characteristic</a>
+ UUID.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#descriptor">Descriptor</a>>></code>:
+        Promise which emits array of 
+<a href="#descriptor">Descriptor</a>
+ objects which are
+discovered for a 
+<a href="#device">Device</a>
+, 
+<a href="#service">Service</a>
+ in specified 
+<a href="#characteristic">Characteristic</a>
 .
 
       
@@ -4672,6 +4291,239 @@ in favour of indications.</p>
         Subscription on which 
 <code>remove()</code>
  function can be called to unsubscribe.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='blemanagerreaddescriptorfordevice'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>readDescriptorForDevice(deviceIdentifier, serviceUUID, characteristicUUID, descriptorUUID, transactionId)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Read <a href="#descriptor">Descriptor</a> value.</p>
+
+    <div class='pre p1 fill-light mt0'>readDescriptorForDevice(deviceIdentifier: <a href="#deviceid">DeviceId</a>, serviceUUID: <a href="#uuid">UUID</a>, characteristicUUID: <a href="#uuid">UUID</a>, descriptorUUID: <a href="#uuid">UUID</a>, transactionId: <a href="#transactionid">TransactionId</a>?): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>deviceIdentifier</span> <code class='quiet'>(<a href="#deviceid">DeviceId</a>)</code>
+	    <a href="#device">Device</a>
+ identifier.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>serviceUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    <a href="#service">Service</a>
+ UUID.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>characteristicUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    <a href="#characteristic">Characteristic</a>
+ UUID.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>descriptorUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    <a href="#descriptor">Descriptor</a>
+ UUID.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>transactionId</span> <code class='quiet'>(<a href="#transactionid">TransactionId</a>?)</code>
+	    optional 
+<code>transactionId</code>
+ which can be used in
+
+<a href="#blemanagercanceltransaction">cancelTransaction()</a>
+ function.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></code>:
+        Promise which emits first 
+<a href="#descriptor">Descriptor</a>
+ object matching specified
+UUID paths. Latest value of 
+<a href="#descriptor">Descriptor</a>
+ will be stored inside returned object.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='blemanagerwritedescriptorfordevice'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>writeDescriptorForDevice(deviceIdentifier, serviceUUID, characteristicUUID, descriptorUUID, valueBase64, transactionId)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Write <a href="#descriptor">Descriptor</a> value.</p>
+
+    <div class='pre p1 fill-light mt0'>writeDescriptorForDevice(deviceIdentifier: <a href="#deviceid">DeviceId</a>, serviceUUID: <a href="#uuid">UUID</a>, characteristicUUID: <a href="#uuid">UUID</a>, descriptorUUID: <a href="#uuid">UUID</a>, valueBase64: <a href="#base64">Base64</a>, transactionId: <a href="#transactionid">TransactionId</a>?): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>deviceIdentifier</span> <code class='quiet'>(<a href="#deviceid">DeviceId</a>)</code>
+	    Connected device identifier
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>serviceUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    Service UUID
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>characteristicUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    Characteristic UUID
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>descriptorUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    Descriptor UUID
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>valueBase64</span> <code class='quiet'>(<a href="#base64">Base64</a>)</code>
+	    Value to be set coded in Base64
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>transactionId</span> <code class='quiet'>(<a href="#transactionid">TransactionId</a>?)</code>
+	    Transaction handle used to cancel operation
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></code>:
+        Descriptor which saved passed value
 
       
     
@@ -6092,6 +5944,91 @@ discovered for a
       </div>
     </div>
   
+    <div class='border-bottom' id='devicedescriptorsforservice'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>descriptorsForService(serviceUUID, characteristicUUID)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p><a href="#blemanagerdescriptorsfordevice">bleManager.descriptorsForDevice()</a> with partially filled arguments.</p>
+
+    <div class='pre p1 fill-light mt0'>descriptorsForService(serviceUUID: <a href="#uuid">UUID</a>, characteristicUUID: <a href="#uuid">UUID</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#descriptor">Descriptor</a>>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>serviceUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    <a href="#service">Service</a>
+ UUID.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>characteristicUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    <a href="#characteristic">Characteristic</a>
+ UUID.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#descriptor">Descriptor</a>>></code>:
+        Promise which emits array of 
+<a href="#descriptor">Descriptor</a>
+ objects which are
+discovered for this 
+<a href="#characteristic">Characteristic</a>
+.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
     <div class='border-bottom' id='devicereadcharacteristicforservice'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -6511,6 +6448,221 @@ UUID paths. Latest value of characteristic may not be stored inside returned obj
       </div>
     </div>
   
+    <div class='border-bottom' id='devicereaddescriptorforservice'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>readDescriptorForService(serviceUUID, characteristicUUID, descriptorUUID, transactionId)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p><a href="#blemanagerreaddescriptorfordevice">bleManager.readDescriptorForDevice()</a> with partially filled arguments.</p>
+
+    <div class='pre p1 fill-light mt0'>readDescriptorForService(serviceUUID: <a href="#uuid">UUID</a>, characteristicUUID: <a href="#uuid">UUID</a>, descriptorUUID: <a href="#uuid">UUID</a>, transactionId: <a href="#transactionid">TransactionId</a>?): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>serviceUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    <a href="#service">Service</a>
+ UUID.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>characteristicUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    <a href="#characteristic">Characteristic</a>
+ UUID.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>descriptorUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    <a href="#descriptor">Descriptor</a>
+ UUID.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>transactionId</span> <code class='quiet'>(<a href="#transactionid">TransactionId</a>?)</code>
+	    optional 
+<code>transactionId</code>
+ which can be used in
+
+<a href="#blemanagercanceltransaction">cancelTransaction()</a>
+ function.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></code>:
+        Promise which emits first 
+<a href="#descriptor">Descriptor</a>
+ object matching specified
+UUID paths. Latest value of 
+<a href="#descriptor">Descriptor</a>
+ will be stored inside returned object.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='devicewritedescriptorforservice'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>writeDescriptorForService(serviceUUID, characteristicUUID, descriptorUUID, valueBase64, transactionId)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p><a href="#blemanagerwritedescriptorfordevice">bleManager.writeDescriptorForDevice()</a> with partially filled arguments.</p>
+
+    <div class='pre p1 fill-light mt0'>writeDescriptorForService(serviceUUID: <a href="#uuid">UUID</a>, characteristicUUID: <a href="#uuid">UUID</a>, descriptorUUID: <a href="#uuid">UUID</a>, valueBase64: <a href="#base64">Base64</a>, transactionId: <a href="#transactionid">TransactionId</a>?): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>serviceUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    <a href="#service">Service</a>
+ UUID.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>characteristicUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    Characteristic UUID
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>descriptorUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    Descriptor UUID
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>valueBase64</span> <code class='quiet'>(<a href="#base64">Base64</a>)</code>
+	    Value to be set coded in Base64
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>transactionId</span> <code class='quiet'>(<a href="#transactionid">TransactionId</a>?)</code>
+	    Transaction handle used to cancel operation
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></code>:
+        Descriptor which saved passed value.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
 </div>
 
   
@@ -6833,6 +6985,83 @@ UUID paths. Latest value of characteristic may not be stored inside returned obj
 <a href="#characteristic">Characteristic</a>
  objects which are
 discovered for this service.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='servicedescriptorsforcharacteristic'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>descriptorsForCharacteristic(characteristicUUID)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p><a href="#blemanagerdescriptorsfordevice">bleManager.descriptorsForDevice()</a> with partially filled arguments.</p>
+
+    <div class='pre p1 fill-light mt0'>descriptorsForCharacteristic(characteristicUUID: <a href="#uuid">UUID</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#descriptor">Descriptor</a>>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>characteristicUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    <a href="#characteristic">Characteristic</a>
+ UUID.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#descriptor">Descriptor</a>>></code>:
+        Promise which emits array of 
+<a href="#descriptor">Descriptor</a>
+ objects which are
+discovered for this 
+<a href="#service">Service</a>
+ in specified 
+<a href="#characteristic">Characteristic</a>
+.
 
       
     
@@ -7212,6 +7441,201 @@ UUID path. Latest value of characteristic may not be stored inside returned obje
         Subscription on which 
 <code>remove()</code>
  function can be called to unsubscribe.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='servicereaddescriptorforcharacteristic'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>readDescriptorForCharacteristic(characteristicUUID, descriptorUUID, transactionId)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p><a href="#blemanagerreaddescriptorfordevice">bleManager.readDescriptorForDevice()</a> with partially filled arguments.</p>
+
+    <div class='pre p1 fill-light mt0'>readDescriptorForCharacteristic(characteristicUUID: <a href="#uuid">UUID</a>, descriptorUUID: <a href="#uuid">UUID</a>, transactionId: <a href="#transactionid">TransactionId</a>?): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>characteristicUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    <a href="#characteristic">Characteristic</a>
+ UUID.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>descriptorUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    <a href="#descriptor">Descriptor</a>
+ UUID.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>transactionId</span> <code class='quiet'>(<a href="#transactionid">TransactionId</a>?)</code>
+	    optional 
+<code>transactionId</code>
+ which can be used in
+
+<a href="#blemanagercanceltransaction">cancelTransaction()</a>
+ function.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></code>:
+        Promise which emits first 
+<a href="#descriptor">Descriptor</a>
+ object matching specified
+UUID paths. Latest value of 
+<a href="#descriptor">Descriptor</a>
+ will be stored inside returned object.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='servicewritedescriptorforcharacteristic'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>writeDescriptorForCharacteristic(characteristicUUID, descriptorUUID, valueBase64, transactionId)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p><a href="#blemanagerwritedescriptorfordevice">bleManager.writeDescriptorForDevice()</a> with partially filled arguments.</p>
+
+    <div class='pre p1 fill-light mt0'>writeDescriptorForCharacteristic(characteristicUUID: <a href="#uuid">UUID</a>, descriptorUUID: <a href="#uuid">UUID</a>, valueBase64: <a href="#base64">Base64</a>, transactionId: <a href="#transactionid">TransactionId</a>?): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>characteristicUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    Characteristic UUID
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>descriptorUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    Descriptor UUID
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>valueBase64</span> <code class='quiet'>(<a href="#base64">Base64</a>)</code>
+	    Value to be set coded in Base64
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>transactionId</span> <code class='quiet'>(<a href="#transactionid">TransactionId</a>?)</code>
+	    Transaction handle used to cancel operation
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></code>:
+        Descriptor which saved passed value.
 
       
     
@@ -7934,6 +8358,66 @@ UUID path. Latest value of characteristic may not be stored inside returned obje
       </div>
     </div>
   
+    <div class='border-bottom' id='characteristicdescriptors'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>descriptors()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p><a href="#blemanagerdescriptorsfordevice">bleManager.descriptorsForDevice()</a> with partially filled arguments.</p>
+
+    <div class='pre p1 fill-light mt0'>descriptors(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#descriptor">Descriptor</a>>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#descriptor">Descriptor</a>>></code>:
+        Promise which emits array of 
+<a href="#descriptor">Descriptor</a>
+ objects which are
+discovered for this 
+<a href="#characteristic">Characteristic</a>
+.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
     <div class='border-bottom' id='characteristicread'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -8271,6 +8755,182 @@ this
       </div>
     </div>
   
+    <div class='border-bottom' id='characteristicreaddescriptor'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>readDescriptor(descriptorUUID, transactionId)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p><a href="#blemanagerreaddescriptorfordevice">bleManager.readDescriptorForDevice()</a> with partially filled arguments.</p>
+
+    <div class='pre p1 fill-light mt0'>readDescriptor(descriptorUUID: <a href="#uuid">UUID</a>, transactionId: <a href="#transactionid">TransactionId</a>?): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>descriptorUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    <a href="#descriptor">Descriptor</a>
+ UUID.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>transactionId</span> <code class='quiet'>(<a href="#transactionid">TransactionId</a>?)</code>
+	    optional 
+<code>transactionId</code>
+ which can be used in
+
+<a href="#blemanagercanceltransaction">cancelTransaction()</a>
+ function.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></code>:
+        Promise which emits first 
+<a href="#descriptor">Descriptor</a>
+ object matching specified
+UUID paths. Latest value of 
+<a href="#descriptor">Descriptor</a>
+ will be stored inside returned object.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='characteristicwritedescriptor'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>writeDescriptor(descriptorUUID, valueBase64, transactionId)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p><a href="#blemanagerwritedescriptorfordevice">bleManager.writeDescriptorForDevice()</a> with partially filled arguments.</p>
+
+    <div class='pre p1 fill-light mt0'>writeDescriptor(descriptorUUID: <a href="#uuid">UUID</a>, valueBase64: <a href="#base64">Base64</a>, transactionId: <a href="#transactionid">TransactionId</a>?): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>descriptorUUID</span> <code class='quiet'>(<a href="#uuid">UUID</a>)</code>
+	    Descriptor UUID
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>valueBase64</span> <code class='quiet'>(<a href="#base64">Base64</a>)</code>
+	    Value to be set coded in Base64
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>transactionId</span> <code class='quiet'>(<a href="#transactionid">TransactionId</a>?)</code>
+	    Transaction handle used to cancel operation
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></code>:
+        Descriptor which saved passed value.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
 </div>
 
   
@@ -8283,19 +8943,667 @@ this
           
         
           
-            <div class='keyline-top-not py2'>
-  <section class='py2 clearfix'>
+          <section class='p2 mb2 clearfix bg-white minishadow'>
 
-    <h2 id='utils' class='mt0'>
-      Utils
-    </h2>
-
+  
+  <div class='clearfix'>
     
-      <p>Utility functions and classes.</p>
-
+    <h3 class='fl m0' id='descriptor'>
+      Descriptor
+    </h3>
     
-  </section>
+    
+  </div>
+  
+
+  <p>Descriptor object.</p>
+
+    <div class='pre p1 fill-light mt0'>new Descriptor(nativeDescriptor: NativeDescriptor, manager: <a href="#blemanager">BleManager</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>nativeDescriptor</span> <code class='quiet'>(NativeDescriptor)</code>
+	    NativeDescriptor
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>manager</span> <code class='quiet'>(<a href="#blemanager">BleManager</a>)</code>
+	    BleManager
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='descriptorid'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>id</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Descriptor unique identifier</p>
+
+    <div class='pre p1 fill-light mt0'>id</div>
+  
+    <p>
+      Type:
+      <a href="#identifier">Identifier</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='descriptoruuid'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>uuid</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Descriptor UUID</p>
+
+    <div class='pre p1 fill-light mt0'>uuid</div>
+  
+    <p>
+      Type:
+      <a href="#uuid">UUID</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='descriptorcharacteristicid'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>characteristicID</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Characteristic's ID to which descriptor belongs</p>
+
+    <div class='pre p1 fill-light mt0'>characteristicID</div>
+  
+    <p>
+      Type:
+      <a href="#identifier">Identifier</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='descriptorcharacteristicuuid'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>characteristicUUID</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Characteristic's UUID to which descriptor belongs</p>
+
+    <div class='pre p1 fill-light mt0'>characteristicUUID</div>
+  
+    <p>
+      Type:
+      <a href="#uuid">UUID</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='descriptorserviceid'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>serviceID</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Service's ID to which descriptor belongs</p>
+
+    <div class='pre p1 fill-light mt0'>serviceID</div>
+  
+    <p>
+      Type:
+      <a href="#identifier">Identifier</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='descriptorserviceuuid'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>serviceUUID</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Service's UUID to which descriptor belongs</p>
+
+    <div class='pre p1 fill-light mt0'>serviceUUID</div>
+  
+    <p>
+      Type:
+      <a href="#uuid">UUID</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='descriptordeviceid'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>deviceID</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Device's ID to which descriptor belongs</p>
+
+    <div class='pre p1 fill-light mt0'>deviceID</div>
+  
+    <p>
+      Type:
+      <a href="#deviceid">DeviceId</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='descriptorvalue'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>value</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Descriptor value if present</p>
+
+    <div class='pre p1 fill-light mt0'>value</div>
+  
+    <p>
+      Type:
+      <a href="#base64">Base64</a>?
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='descriptorread'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>read(transactionId)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p><a href="#blemanagerreaddescriptorfordevice">bleManager.readDescriptorForDevice()</a> with partially filled arguments.</p>
+
+    <div class='pre p1 fill-light mt0'>read(transactionId: <a href="#transactionid">TransactionId</a>?): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>transactionId</span> <code class='quiet'>(<a href="#transactionid">TransactionId</a>?)</code>
+	    optional 
+<code>transactionId</code>
+ which can be used in
+
+<a href="#blemanagercanceltransaction">cancelTransaction()</a>
+ function.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></code>:
+        Promise which emits first 
+<a href="#descriptor">Descriptor</a>
+ object matching specified
+UUID paths. Latest value of 
+<a href="#descriptor">Descriptor</a>
+ will be stored inside returned object.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='descriptorwrite'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>write(valueBase64, transactionId)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p><a href="#blemanagerwritedescriptorfordevice">bleManager.writeDescriptorForDevice()</a> with partially filled arguments.</p>
+
+    <div class='pre p1 fill-light mt0'>write(valueBase64: <a href="#base64">Base64</a>, transactionId: <a href="#transactionid">TransactionId</a>?): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>valueBase64</span> <code class='quiet'>(<a href="#base64">Base64</a>)</code>
+	    Value to be set coded in Base64
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>transactionId</span> <code class='quiet'>(<a href="#transactionid">TransactionId</a>?)</code>
+	    Transaction handle used to cancel operation
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="#descriptor">Descriptor</a>></code>:
+        Descriptor which saved passed value.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
 </div>
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <div class='keyline-top-not py2'><section class='py2 clearfix'>
+
+  <h2 id='utils' class='mt0'>
+    Utils
+  </h2>
+
+  
+    <p>Utility functions and classes.</p>
+
+  
+</section></div>
           
         
           
@@ -8369,19 +9677,17 @@ this
           
         
           
-            <div class='keyline-top-not py2'>
-  <section class='py2 clearfix'>
+            <div class='keyline-top-not py2'><section class='py2 clearfix'>
 
-    <h2 id='ble-error' class='mt0'>
-      BLE Error
-    </h2>
+  <h2 id='ble-error' class='mt0'>
+    BLE Error
+  </h2>
 
-    
-      <p>Types and classes related to BLE errors.</p>
+  
+    <p>Types and classes related to BLE errors.</p>
 
-    
-  </section>
-</div>
+  
+</section></div>
           
         
           
@@ -10446,6 +11752,53 @@ to cache them.</p>
   <p>Invalid Base64 format was passed to descriptor API function call.</p>
 
     <div class='pre p1 fill-light mt0'>DescriptorInvalidDataFormat</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='bleerrorcodedescriptorwritenotallowed'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>DescriptorWriteNotAllowed</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Issued a write to a descriptor, which is handled by OS.</p>
+
+    <div class='pre p1 fill-light mt0'>DescriptorWriteNotAllowed</div>
   
   
 
@@ -13005,19 +14358,17 @@ to cache them.</p>
           
         
           
-            <div class='keyline-top-not py2'>
-  <section class='py2 clearfix'>
+            <div class='keyline-top-not py2'><section class='py2 clearfix'>
 
-    <h2 id='flow-types' class='mt0'>
-      Flow Types
-    </h2>
+  <h2 id='flow-types' class='mt0'>
+    Flow Types
+  </h2>
 
-    
-      <p>All Flow aliases and Flow types used in this library.</p>
+  
+    <p>All Flow aliases and Flow types used in this library.</p>
 
-    
-  </section>
-</div>
+  
+</section></div>
           
         
           
@@ -13971,29 +15322,6 @@ received by <a href="#blemanager">BleManager</a></p>
   
 
   
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>restoreStateIdentifier</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>restoreStateFunction</span> <code class='quiet'>(function (restoredState: <a href="#blerestoredstate">BleRestoredState</a>?): void?)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>errorCodesToMessagesMapping</span> <code class='quiet'>(<a href="#bleerrorcodemessagemapping">BleErrorCodeMessageMapping</a>?)</code>
-          
-          
-        </div>
-      
-    </div>
-  
 
   
 
@@ -14022,6 +15350,11 @@ received by <a href="#blemanager">BleManager</a></p>
   <p>BLE State restoration identifier used to restore state.</p>
 
     <div class='pre p1 fill-light mt0'>restoreStateIdentifier</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
+    </p>
   
   
 
@@ -14058,7 +15391,7 @@ received by <a href="#blemanager">BleManager</a></p>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>restoreStateFunction</span>
+            <span class='code strong strong truncate'>restoreStateFunction(restoredState)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -14072,7 +15405,12 @@ is passed. When value is <code>null</code> application is launching for the firs
 it contains saved state which may be used by developer to continue working with
 connected peripherals.</p>
 
-    <div class='pre p1 fill-light mt0'>restoreStateFunction</div>
+    <div class='pre p1 fill-light mt0'>restoreStateFunction(restoredState: <a href="#blerestoredstate">BleRestoredState</a>?): void</div>
+  
+    <p>
+      Type:
+      function (restoredState: <a href="#blerestoredstate">BleRestoredState</a>?): void
+    </p>
   
   
 
@@ -14084,9 +15422,27 @@ connected peripherals.</p>
   
 
   
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>restoredState</span> <code class='quiet'>(<a href="#blerestoredstate">BleRestoredState</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
 
   
 
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
   
 
   
@@ -14123,6 +15479,11 @@ by default.</p>
 and overwrite values of interest to you.</p>
 
     <div class='pre p1 fill-light mt0'>errorCodesToMessagesMapping</div>
+  
+    <p>
+      Type:
+      <a href="#bleerrorcodemessagemapping">BleErrorCodeMessageMapping</a>
+    </p>
   
   
 
@@ -14195,17 +15556,6 @@ and overwrite values of interest to you.</p>
 
   
 
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>connectedPeripherals</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#device">Device</a>>)</code>
-          
-          
-        </div>
-      
-    </div>
   
 
   
@@ -14342,200 +15692,10 @@ and overwrite values of interest to you.</p>
 
     <div class='pre p1 fill-light mt0'>allowDuplicates</div>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='scanoptionsscanmode'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>scanMode</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Scan mode for Bluetooth LE scan [Android only]</p>
-
-    <div class='pre p1 fill-light mt0'>scanMode</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='scanoptionscallbacktype'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>callbackType</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Scan callback type for Bluetooth LE scan [Android only]</p>
-
-    <div class='pre p1 fill-light mt0'>callbackType</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-</div>
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='scanoptions'>
-      ScanOptions
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Options which can be passed to scanning function</p>
-
-    <div class='pre p1 fill-light mt0'>ScanOptions</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
-    <div class="clearfix">
-  
-    <div class='border-bottom' id='scanoptionsallowduplicates'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>allowDuplicates</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>By allowing duplicates scanning records are received more frequently [iOS only]</p>
-
-    <div class='pre p1 fill-light mt0'>allowDuplicates</div>
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>
+    </p>
   
   
 
@@ -14584,6 +15744,11 @@ and overwrite values of interest to you.</p>
 
     <div class='pre p1 fill-light mt0'>scanMode</div>
   
+    <p>
+      Type:
+      $Values&#x3C;any>
+    </p>
+  
   
 
   
@@ -14630,6 +15795,11 @@ and overwrite values of interest to you.</p>
   <p>Scan callback type for Bluetooth LE scan [Android only]</p>
 
     <div class='pre p1 fill-light mt0'>callbackType</div>
+  
+    <p>
+      Type:
+      $Values&#x3C;any>
+    </p>
   
   
 
@@ -15147,35 +16317,6 @@ running in the foreground.</p>
   
 
   
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>autoConnect</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>requestMTU</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>refreshGatt</span> <code class='quiet'>(<a href="#refreshgattmoment">RefreshGattMoment</a>?)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>timeout</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?)</code>
-          
-          
-        </div>
-      
-    </div>
-  
 
   
 
@@ -15205,6 +16346,11 @@ running in the foreground.</p>
 becomes available (true). [Android only]</p>
 
     <div class='pre p1 fill-light mt0'>autoConnect</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>
+    </p>
   
   
 
@@ -15252,6 +16398,11 @@ becomes available (true). [Android only]</p>
   <p>Whether MTU size will be negotiated to this value. It is not guaranteed to get it after connection is successful.</p>
 
     <div class='pre p1 fill-light mt0'>requestMTU</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
+    </p>
   
   
 
@@ -15302,6 +16453,11 @@ updated and it's services/characteristics were added/removed/altered. [Android o
 
     <div class='pre p1 fill-light mt0'>refreshGatt</div>
   
+    <p>
+      Type:
+      <a href="#refreshgattmoment">RefreshGattMoment</a>
+    </p>
+  
   
 
   
@@ -15350,6 +16506,11 @@ established right after timeout event, device will be disconnected immediately. 
 specified due to OS specific behavior.</p>
 
     <div class='pre p1 fill-light mt0'>timeout</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
+    </p>
   
   
 
@@ -15634,17 +16795,6 @@ specified due to OS specific behavior.</p>
 
   
 
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>remove</span> <code class='quiet'>(function (): void)</code>
-          
-          
-        </div>
-      
-    </div>
   
 
   
