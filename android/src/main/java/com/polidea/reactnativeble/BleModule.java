@@ -66,6 +66,7 @@ import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
+import rx.schedulers.Schedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Func0;
@@ -1712,6 +1713,8 @@ public class BleModule extends ReactContextBaseJavaModule {
                         return observable;
                     }
                 })
+                .onBackpressureBuffer()
+                .observeOn(Schedulers.computation())
                 .doOnUnsubscribe(new Action0() {
                     @Override
                     public void call() {
