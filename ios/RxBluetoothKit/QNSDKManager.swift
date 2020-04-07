@@ -224,21 +224,20 @@ public class QNSDKManager: NSObject {
 
 }
 //MARK: - Discover Listener Methods
-extension QNSDKManager: QNBleDeviceDiscoveryListener {
-//extension QNSDKManager: QNBleDeviceDiscoveryListener{
-    //Your implementation functions
+// extension QNSDKManager: QNBleDeviceDiscoveryListener {
+
 //    func onStartScan(){
 //    }
 
-    func onDeviceDiscover(_ device: QNBleDevice){
-    }
+//     func onDeviceDiscover(_ device: QNBleDevice){
+//     }
 
 //    func onBroadcastDeviceDiscover(device: QNBleBroadcastDevice){
 //    }
-//
+
 //    func onKitchenDeviceDiscover(device: QNBleKitchenDevice){
 //    }
-//
+
 //    func onStopScan(){
 //    }
-}
+// }

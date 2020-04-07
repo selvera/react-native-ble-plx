@@ -49,23 +49,23 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/selvera/react-native-ble-plx.git" }
   s.source_files  = "ios/**/*.{swift, qn}", "ios/*.{qn}"
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.1' }
+  # s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.1' }
   
 
-#  s.dependency 'QNSDK'
    s.subspec "QNSDK" do |spec|
-     # spec.source_files   = "MyThing/Core/**/*.{h,m,swift}"
-     # spec.public_header_files = "QNSDK/Core/*.{h}"
-      spec.header_dir = "ios/QNSDK"
-     spec.source_files = 'ios/QNSDK/SDK/**/*'
-#     spec.vendored_libraries = 'ios/QNSDK/SDK/libQNDeviceSDK.a'
-     spec.public_header_files= 'ios/QNSDK/SDK/**/*.h'
-     spec.dependency 'QNSDK'
+    spec.source_files = 'ios/QNSDK/SDK/**/*'
+    spec.dependency 'QNSDK'
    end
 
-   s.dependency 'QNSDK'
-  # s.vendored_libraries = 'QNSDK/SDK/libQNDeviceSDK.a'
-  # s.public_header_files= 'QNSDK/SDK/**/*.h'
-  # s.static_framework = true
-  # s.frameworks = 'QNSDK'
+  s.public_header_files= 'ios/QNSDK/SDK/**/*.h', "ios/**/*.{h,m}", "ios/*.{h,m}"
+
+  s.dependency 'QNSDK'
+
 end
+
+
+
+  #  s.dependency 'QNSDK'
+
+  # s.frameworks = 'QNSDK'
+# end
