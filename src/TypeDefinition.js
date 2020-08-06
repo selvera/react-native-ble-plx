@@ -300,3 +300,13 @@ export const ConnectionPriority = {
    */
   LowPower: 2
 }
+
+/**
+ * Options which can be passed to scanning function
+ * @name ScanOptions
+ */
+export interface ScaleInfo {
+  gender: string;
+  age: number;
+  height: number;
+}
